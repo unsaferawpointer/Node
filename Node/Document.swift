@@ -19,6 +19,7 @@ class Document: NSDocument {
 
 	override func makeWindowControllers() {
 		let windowController = WindowController(window: .main)
+		windowController.contentViewController = Editor.ViewController()
 		addWindowController(windowController)
 	}
 

@@ -17,6 +17,12 @@
 		4C0110B929EA74390084B5BB /* NodeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110B829EA74390084B5BB /* NodeUITestsLaunchTests.swift */; };
 		4C0110C729EA749F0084B5BB /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110C629EA74930084B5BB /* WindowController.swift */; };
 		4C0110CA29EA74CC0084B5BB /* NSWindow + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110C929EA74CC0084B5BB /* NSWindow + Extensions.swift */; };
+		4C0110CF29EA7D4D0084B5BB /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110CE29EA7D4D0084B5BB /* Editor.swift */; };
+		4C0110D129EA7D920084B5BB /* Editor.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110D029EA7D920084B5BB /* Editor.ViewController.swift */; };
+		4C0110D729EA7E890084B5BB /* NSTableColumn + Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110D229EA7E890084B5BB /* NSTableColumn + Extentions.swift */; };
+		4C0110D829EA7E890084B5BB /* NSTableView + Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110D329EA7E890084B5BB /* NSTableView + Extentions.swift */; };
+		4C0110D929EA7E890084B5BB /* NSOutlineView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110D429EA7E890084B5BB /* NSOutlineView + Extensions.swift */; };
+		4C0110DB29EA7E890084B5BB /* NSScrollView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110D629EA7E890084B5BB /* NSScrollView + Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +58,12 @@
 		4C0110B829EA74390084B5BB /* NodeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4C0110C629EA74930084B5BB /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		4C0110C929EA74CC0084B5BB /* NSWindow + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSWindow + Extensions.swift"; sourceTree = "<group>"; };
+		4C0110CE29EA7D4D0084B5BB /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
+		4C0110D029EA7D920084B5BB /* Editor.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.ViewController.swift; sourceTree = "<group>"; };
+		4C0110D229EA7E890084B5BB /* NSTableColumn + Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTableColumn + Extentions.swift"; sourceTree = "<group>"; };
+		4C0110D329EA7E890084B5BB /* NSTableView + Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTableView + Extentions.swift"; sourceTree = "<group>"; };
+		4C0110D429EA7E890084B5BB /* NSOutlineView + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSOutlineView + Extensions.swift"; sourceTree = "<group>"; };
+		4C0110D629EA7E890084B5BB /* NSScrollView + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSScrollView + Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +118,7 @@
 				4C01109B29EA74380084B5BB /* Document.swift */,
 				4C01109929EA74380084B5BB /* ViewController.swift */,
 				4C0110A329EA74390084B5BB /* Node.entitlements */,
+				4C0110CC29EA7D1B0084B5BB /* Modules */,
 				4C0110CB29EA76780084B5BB /* Resource */,
 				4C0110A229EA74390084B5BB /* Info.plist */,
 				4C0110C829EA74CC0084B5BB /* Extensions */,
@@ -143,6 +156,10 @@
 			isa = PBXGroup;
 			children = (
 				4C0110C929EA74CC0084B5BB /* NSWindow + Extensions.swift */,
+				4C0110D429EA7E890084B5BB /* NSOutlineView + Extensions.swift */,
+				4C0110D629EA7E890084B5BB /* NSScrollView + Extensions.swift */,
+				4C0110D229EA7E890084B5BB /* NSTableColumn + Extentions.swift */,
+				4C0110D329EA7E890084B5BB /* NSTableView + Extentions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -154,6 +171,23 @@
 				4C01109F29EA74390084B5BB /* Main.storyboard */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		4C0110CC29EA7D1B0084B5BB /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				4C0110CD29EA7D360084B5BB /* Editor */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		4C0110CD29EA7D360084B5BB /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				4C0110CE29EA7D4D0084B5BB /* Editor.swift */,
+				4C0110D029EA7D920084B5BB /* Editor.ViewController.swift */,
+			);
+			path = Editor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,8 +322,14 @@
 			files = (
 				4C01109A29EA74380084B5BB /* ViewController.swift in Sources */,
 				4C0110C729EA749F0084B5BB /* WindowController.swift in Sources */,
+				4C0110D929EA7E890084B5BB /* NSOutlineView + Extensions.swift in Sources */,
 				4C0110CA29EA74CC0084B5BB /* NSWindow + Extensions.swift in Sources */,
+				4C0110DB29EA7E890084B5BB /* NSScrollView + Extensions.swift in Sources */,
 				4C01109829EA74380084B5BB /* AppDelegate.swift in Sources */,
+				4C0110D729EA7E890084B5BB /* NSTableColumn + Extentions.swift in Sources */,
+				4C0110D829EA7E890084B5BB /* NSTableView + Extentions.swift in Sources */,
+				4C0110CF29EA7D4D0084B5BB /* Editor.swift in Sources */,
+				4C0110D129EA7D920084B5BB /* Editor.ViewController.swift in Sources */,
 				4C01109C29EA74380084B5BB /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
