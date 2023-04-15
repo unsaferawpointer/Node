@@ -15,6 +15,8 @@
 		4C0110AD29EA74390084B5BB /* NodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110AC29EA74390084B5BB /* NodeTests.swift */; };
 		4C0110B729EA74390084B5BB /* NodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110B629EA74390084B5BB /* NodeUITests.swift */; };
 		4C0110B929EA74390084B5BB /* NodeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110B829EA74390084B5BB /* NodeUITestsLaunchTests.swift */; };
+		4C0110C729EA749F0084B5BB /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110C629EA74930084B5BB /* WindowController.swift */; };
+		4C0110CA29EA74CC0084B5BB /* NSWindow + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110C929EA74CC0084B5BB /* NSWindow + Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		4C0110B229EA74390084B5BB /* NodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0110B629EA74390084B5BB /* NodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeUITests.swift; sourceTree = "<group>"; };
 		4C0110B829EA74390084B5BB /* NodeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4C0110C629EA74930084B5BB /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		4C0110C929EA74CC0084B5BB /* NSWindow + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSWindow + Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 				4C01109F29EA74390084B5BB /* Main.storyboard */,
 				4C0110A229EA74390084B5BB /* Info.plist */,
 				4C0110A329EA74390084B5BB /* Node.entitlements */,
+				4C0110C829EA74CC0084B5BB /* Extensions */,
+				4C0110C529EA74860084B5BB /* UserInterface */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -124,6 +130,22 @@
 				4C0110B829EA74390084B5BB /* NodeUITestsLaunchTests.swift */,
 			);
 			path = NodeUITests;
+			sourceTree = "<group>";
+		};
+		4C0110C529EA74860084B5BB /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				4C0110C629EA74930084B5BB /* WindowController.swift */,
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		4C0110C829EA74CC0084B5BB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4C0110C929EA74CC0084B5BB /* NSWindow + Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +279,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C01109A29EA74380084B5BB /* ViewController.swift in Sources */,
+				4C0110C729EA749F0084B5BB /* WindowController.swift in Sources */,
+				4C0110CA29EA74CC0084B5BB /* NSWindow + Extensions.swift in Sources */,
 				4C01109829EA74380084B5BB /* AppDelegate.swift in Sources */,
 				4C01109C29EA74380084B5BB /* Document.swift in Sources */,
 			);

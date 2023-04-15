@@ -10,8 +10,7 @@ import Cocoa
 class Document: NSDocument {
 
 	override init() {
-	    super.init()
-		// Add your subclass-specific initialization here.
+		super.init()
 	}
 
 	override class var autosavesInPlace: Bool {
@@ -19,10 +18,8 @@ class Document: NSDocument {
 	}
 
 	override func makeWindowControllers() {
-		// Returns the Storyboard that contains your Document window.
-		let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-		let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! NSWindowController
-		self.addWindowController(windowController)
+		let windowController = WindowController(window: .main)
+		addWindowController(windowController)
 	}
 
 	override func data(ofType typeName: String) throws -> Data {
@@ -38,6 +35,4 @@ class Document: NSDocument {
 		throw NSError(domain: NSOSStatusErrorDomain, code: unimpErr, userInfo: nil)
 	}
 
-
 }
-
