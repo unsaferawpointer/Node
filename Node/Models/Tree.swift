@@ -52,14 +52,14 @@ extension Tree {
 
 	private func insert(_ nodes: [Node<Object>], to destination: Node<Object>?, at index: Int?) {
 		switch (destination, index) {
-			case (.some(let parent), .some(let index)):
-				parent.children.insert(contentsOf: nodes, at: index)
-			case (.none, .some(let index)):
-				self.nodes.insert(contentsOf: nodes, at: index)
-			case (.some(let parent), .none):
-				parent.children.append(contentsOf: nodes)
-			case (.none, .none):
-				self.nodes.append(contentsOf: nodes)
+		case (.some(let parent), .some(let index)):
+			parent.children.insert(contentsOf: nodes, at: index)
+		case (.none, .some(let index)):
+			self.nodes.insert(contentsOf: nodes, at: index)
+		case (.some(let parent), .none):
+			parent.children.append(contentsOf: nodes)
+		case (.none, .none):
+			self.nodes.append(contentsOf: nodes)
 		}
 		// Update cache
 		insertToCache(nodes)

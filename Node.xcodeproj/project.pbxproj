@@ -12,7 +12,6 @@
 		4C01109C29EA74380084B5BB /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C01109B29EA74380084B5BB /* Document.swift */; };
 		4C01109E29EA74390084B5BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C01109D29EA74390084B5BB /* Assets.xcassets */; };
 		4C0110A129EA74390084B5BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C01109F29EA74390084B5BB /* Main.storyboard */; };
-		4C0110AD29EA74390084B5BB /* NodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110AC29EA74390084B5BB /* NodeTests.swift */; };
 		4C0110B729EA74390084B5BB /* NodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110B629EA74390084B5BB /* NodeUITests.swift */; };
 		4C0110B929EA74390084B5BB /* NodeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110B829EA74390084B5BB /* NodeUITestsLaunchTests.swift */; };
 		4C0110C729EA749F0084B5BB /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110C629EA74930084B5BB /* WindowController.swift */; };
@@ -56,7 +55,6 @@
 		4C0110A229EA74390084B5BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C0110A329EA74390084B5BB /* Node.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Node.entitlements; sourceTree = "<group>"; };
 		4C0110A829EA74390084B5BB /* NodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C0110AC29EA74390084B5BB /* NodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTests.swift; sourceTree = "<group>"; };
 		4C0110B229EA74390084B5BB /* NodeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NodeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C0110B629EA74390084B5BB /* NodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeUITests.swift; sourceTree = "<group>"; };
 		4C0110B829EA74390084B5BB /* NodeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				4C56603B29F5543F004F60B9 /* TreeTests.swift */,
-				4C0110AC29EA74390084B5BB /* NodeTests.swift */,
 			);
 			path = NodeTests;
 			sourceTree = "<group>";
@@ -236,6 +233,7 @@
 				4C01109029EA74380084B5BB /* Sources */,
 				4C01109129EA74380084B5BB /* Frameworks */,
 				4C01109229EA74380084B5BB /* Resources */,
+				4CFEF74929F56383000A2629 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -351,6 +349,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4CFEF74929F56383000A2629 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4C01109029EA74380084B5BB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -377,7 +395,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C0110AD29EA74390084B5BB /* NodeTests.swift in Sources */,
 				4C56603C29F5543F004F60B9 /* TreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
