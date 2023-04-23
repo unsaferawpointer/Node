@@ -27,6 +27,8 @@
 		4CDE0ACF29F54E5C00FC3812 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE0ACE29F54E5C00FC3812 /* Tree.swift */; };
 		4CDE0AD129F54E7E00FC3812 /* Tree + Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */; };
 		4CFEF74B29F57E81000A2629 /* TreeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEF74A29F57E81000A2629 /* TreeDelegate.swift */; };
+		4CFEF75129F5A04D000A2629 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEF75029F5A04D000A2629 /* Bindable.swift */; };
+		4CFEF75329F5A144000A2629 /* BindableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEF75229F5A144000A2629 /* BindableTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		4CDE0ACE29F54E5C00FC3812 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tree + Node.swift"; sourceTree = "<group>"; };
 		4CFEF74A29F57E81000A2629 /* TreeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeDelegate.swift; sourceTree = "<group>"; };
+		4CFEF75029F5A04D000A2629 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		4CFEF75229F5A144000A2629 /* BindableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				4C56603B29F5543F004F60B9 /* TreeTests.swift */,
+				4CFEF75229F5A144000A2629 /* BindableTests.swift */,
 			);
 			path = NodeTests;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				4C56603929F54FF4004F60B9 /* ReferenceIdentifiable.swift */,
+				4CFEF75029F5A04D000A2629 /* Bindable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -387,6 +393,7 @@
 				4C01109829EA74380084B5BB /* AppDelegate.swift in Sources */,
 				4C0110D729EA7E890084B5BB /* NSTableColumn + Extentions.swift in Sources */,
 				4CFEF74B29F57E81000A2629 /* TreeDelegate.swift in Sources */,
+				4CFEF75129F5A04D000A2629 /* Bindable.swift in Sources */,
 				4C0110D829EA7E890084B5BB /* NSTableView + Extentions.swift in Sources */,
 				4C0110CF29EA7D4D0084B5BB /* Editor.swift in Sources */,
 				4CDE0ACF29F54E5C00FC3812 /* Tree.swift in Sources */,
@@ -399,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CFEF75329F5A144000A2629 /* BindableTests.swift in Sources */,
 				4C56603C29F5543F004F60B9 /* TreeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
