@@ -26,6 +26,10 @@
 		4C56603C29F5543F004F60B9 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C56603B29F5543F004F60B9 /* TreeTests.swift */; };
 		4CDE0ACF29F54E5C00FC3812 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE0ACE29F54E5C00FC3812 /* Tree.swift */; };
 		4CDE0AD129F54E7E00FC3812 /* Tree + Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */; };
+		4CEBDD6729F5C03B00019F43 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD6629F5C03B00019F43 /* Checkbox.swift */; };
+		4CEBDD6B29F5C10400019F43 /* ConfigurableField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD6A29F5C10400019F43 /* ConfigurableField.swift */; };
+		4CEBDD6D29F5C4FB00019F43 /* FieldConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD6C29F5C4FB00019F43 /* FieldConfiguration.swift */; };
+		4CEBDD6F29F5C81A00019F43 /* CheckboxConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD6E29F5C81A00019F43 /* CheckboxConfiguration.swift */; };
 		4CFEF74B29F57E81000A2629 /* TreeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEF74A29F57E81000A2629 /* TreeDelegate.swift */; };
 		4CFEF75129F5A04D000A2629 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEF75029F5A04D000A2629 /* Bindable.swift */; };
 		4CFEF75329F5A144000A2629 /* BindableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEF75229F5A144000A2629 /* BindableTests.swift */; };
@@ -73,6 +77,10 @@
 		4C56603B29F5543F004F60B9 /* TreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
 		4CDE0ACE29F54E5C00FC3812 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tree + Node.swift"; sourceTree = "<group>"; };
+		4CEBDD6629F5C03B00019F43 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		4CEBDD6A29F5C10400019F43 /* ConfigurableField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableField.swift; sourceTree = "<group>"; };
+		4CEBDD6C29F5C4FB00019F43 /* FieldConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldConfiguration.swift; sourceTree = "<group>"; };
+		4CEBDD6E29F5C81A00019F43 /* CheckboxConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxConfiguration.swift; sourceTree = "<group>"; };
 		4CFEF74A29F57E81000A2629 /* TreeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeDelegate.swift; sourceTree = "<group>"; };
 		4CFEF75029F5A04D000A2629 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		4CFEF75229F5A144000A2629 /* BindableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableTests.swift; sourceTree = "<group>"; };
@@ -130,6 +138,7 @@
 				4C01109B29EA74380084B5BB /* Document.swift */,
 				4C01109929EA74380084B5BB /* ViewController.swift */,
 				4C0110A329EA74390084B5BB /* Node.entitlements */,
+				4CFEF75429F5AD16000A2629 /* UI */,
 				4CDE0ACD29F54E4C00FC3812 /* Models */,
 				4CDE0ACC29F54E4200FC3812 /* Common */,
 				4C0110CC29EA7D1B0084B5BB /* Modules */,
@@ -230,6 +239,25 @@
 				4C56603829F54FD0004F60B9 /* Tree */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4CEBDD6529F5BEDC00019F43 /* Fields */ = {
+			isa = PBXGroup;
+			children = (
+				4CEBDD6629F5C03B00019F43 /* Checkbox.swift */,
+				4CEBDD6E29F5C81A00019F43 /* CheckboxConfiguration.swift */,
+			);
+			name = Fields;
+			sourceTree = "<group>";
+		};
+		4CFEF75429F5AD16000A2629 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4CEBDD6A29F5C10400019F43 /* ConfigurableField.swift */,
+				4CEBDD6C29F5C4FB00019F43 /* FieldConfiguration.swift */,
+				4CEBDD6529F5BEDC00019F43 /* Fields */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,7 +412,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C01109A29EA74380084B5BB /* ViewController.swift in Sources */,
+				4CEBDD6B29F5C10400019F43 /* ConfigurableField.swift in Sources */,
 				4C56603A29F54FF4004F60B9 /* ReferenceIdentifiable.swift in Sources */,
+				4CEBDD6F29F5C81A00019F43 /* CheckboxConfiguration.swift in Sources */,
 				4C0110C729EA749F0084B5BB /* WindowController.swift in Sources */,
 				4C0110D929EA7E890084B5BB /* NSOutlineView + Extensions.swift in Sources */,
 				4C0110CA29EA74CC0084B5BB /* NSWindow + Extensions.swift in Sources */,
@@ -396,9 +426,11 @@
 				4CFEF75129F5A04D000A2629 /* Bindable.swift in Sources */,
 				4C0110D829EA7E890084B5BB /* NSTableView + Extentions.swift in Sources */,
 				4C0110CF29EA7D4D0084B5BB /* Editor.swift in Sources */,
+				4CEBDD6D29F5C4FB00019F43 /* FieldConfiguration.swift in Sources */,
 				4CDE0ACF29F54E5C00FC3812 /* Tree.swift in Sources */,
 				4C0110D129EA7D920084B5BB /* Editor.ViewController.swift in Sources */,
 				4C01109C29EA74380084B5BB /* Document.swift in Sources */,
+				4CEBDD6729F5C03B00019F43 /* Checkbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
