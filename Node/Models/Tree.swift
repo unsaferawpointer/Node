@@ -5,8 +5,12 @@
 //  Created by Anton Cherkasov on 23.04.2023.
 //
 
+import Foundation
+
 /// Representation of a hierarchical data structure
 final class Tree<Object> where Object: ReferenceIdentifiable {
+
+	weak var delegate: TreeDelegate?
 
 	private var nodes: [Node<Object>] = []
 
@@ -51,18 +55,29 @@ extension Tree {
 	}
 
 	private func insert(_ nodes: [Node<Object>], to destination: Node<Object>?, at index: Int?) {
-		switch (destination, index) {
-		case (.some(let parent), .some(let index)):
-			parent.children.insert(contentsOf: nodes, at: index)
-		case (.none, .some(let index)):
-			self.nodes.insert(contentsOf: nodes, at: index)
-		case (.some(let parent), .none):
-			parent.children.append(contentsOf: nodes)
-		case (.none, .none):
-			self.nodes.append(contentsOf: nodes)
-		}
 		// Update cache
 		insertToCache(nodes)
+
+		switch (destination, index) {
+		case (.some(let parent), .some(let index)):
+			let indexSet = IndexSet(index..<index + nodes.count)
+			parent.children.insert(contentsOf: nodes, at: index)
+			delegate?.treeInsertedNewObjects(to: indexSet, in: parent.object)
+		case (.none, .some(let index)):
+			let indexSet = IndexSet(index..<index + nodes.count)
+			self.nodes.insert(contentsOf: nodes, at: index)
+			delegate?.treeInsertedNewObjects(to: indexSet, in: nil)
+		case (.some(let parent), .none):
+			let firstIndex = parent.children.count
+			let indexSet = IndexSet(firstIndex..<firstIndex + nodes.count)
+			parent.children.append(contentsOf: nodes)
+			delegate?.treeInsertedNewObjects(to: indexSet, in: parent.object)
+		case (.none, .none):
+			let firstIndex = self.nodes.count
+			let indexSet = IndexSet(firstIndex..<firstIndex + nodes.count)
+			self.nodes.append(contentsOf: nodes)
+			delegate?.treeInsertedNewObjects(to: indexSet, in: nil)
+		}
 	}
 
 }

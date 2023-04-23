@@ -12,12 +12,17 @@ final class TreeTests: XCTestCase {
 
 	var sut: Tree<ObjectMock>!
 
+	var delegate: TreeDelegateSpy!
+
 	override func setUpWithError() throws {
+		delegate = TreeDelegateSpy()
 		sut = Tree()
+		sut.delegate = delegate
 	}
 
 	override func tearDownWithError() throws {
 		sut = nil
+		delegate = nil
 	}
 
 }
@@ -42,6 +47,11 @@ extension TreeTests {
 			identifiers.append(object.id)
 		}
 		XCTAssertEqual(identifiers, ["0", "1", "2", "3"])
+		guard case let .treeInsertedNewObjects(indexSet, parent) = delegate.invocations.first else {
+			return XCTFail("`treeInsertedNewObjects` must be invocked")
+		}
+		XCTAssertEqual(indexSet, IndexSet([0, 1, 2, 3]))
+		XCTAssertNil(parent)
 	}
 
 	func test_insert_to_root() {
@@ -52,6 +62,7 @@ extension TreeTests {
 		let node3 = ObjectMock(id: "3")
 
 		sut.insert([node0, node1, node2, node3], to: nil, at: nil)
+		delegate.invocations.removeAll()
 
 		let inserted0 = ObjectMock(id: "inserted0")
 		let inserted1 = ObjectMock(id: "inserted1")
@@ -66,6 +77,12 @@ extension TreeTests {
 			identifiers.append(object.id)
 		}
 		XCTAssertEqual(identifiers, ["0", "1", "inserted0", "inserted1", "2", "3"])
+
+		guard case let .treeInsertedNewObjects(indexSet, parent) = delegate.invocations.first else {
+			return XCTFail("`treeInsertedNewObjects` must be invocked")
+		}
+		XCTAssertEqual(indexSet, IndexSet([2, 3]))
+		XCTAssertNil(parent)
 	}
 
 	func test_append_to_destination() {
@@ -81,6 +98,8 @@ extension TreeTests {
 		sut.insert([node0, node1], to: nil, at: nil)
 		sut.insert([node00, node01], to: node0, at: nil)
 
+		delegate.invocations.removeAll()
+
 		// Act
 		sut.insert([node000, node001], to: node00, at: nil)
 
@@ -91,6 +110,12 @@ extension TreeTests {
 			identifiers.append(object.id)
 		}
 		XCTAssertEqual(identifiers, ["0", "0-0", "0-0-0", "0-0-1", "0-1", "1"])
+
+		guard case let .treeInsertedNewObjects(indexSet, parent) = delegate.invocations.first else {
+			return XCTFail("`treeInsertedNewObjects` must be invocked")
+		}
+		XCTAssertEqual(indexSet, IndexSet([0, 1]))
+		XCTAssertIdentical(parent, node00)
 	}
 
 	func test_insert_to_destination() {
@@ -106,6 +131,8 @@ extension TreeTests {
 		sut.insert([node0, node1], to: nil, at: nil)
 		sut.insert([node00, node01], to: node0, at: nil)
 
+		delegate.invocations.removeAll()
+
 		// Act
 		sut.insert([inserted0, inserted1], to: node0, at: 1)
 
@@ -116,6 +143,12 @@ extension TreeTests {
 			identifiers.append(object.id)
 		}
 		XCTAssertEqual(identifiers, ["0", "0-0", "inserted0", "inserted1", "0-1", "1"])
+
+		guard case let .treeInsertedNewObjects(indexSet, parent) = delegate.invocations.first else {
+			return XCTFail("`treeInsertedNewObjects` must be invocked")
+		}
+		XCTAssertEqual(indexSet, IndexSet([1, 2]))
+		XCTAssertIdentical(parent, node0)
 	}
 }
 
@@ -129,5 +162,19 @@ extension TreeTests {
 		init(id: String) {
 			self.id = id
 		}
+	}
+}
+
+final class TreeDelegateSpy: TreeDelegate {
+
+	var invocations: [Action] = []
+
+	enum Action {
+		case treeInsertedNewObjects(indexSet: IndexSet, parent: AnyObject?)
+	}
+
+	func treeInsertedNewObjects(to indexSet: IndexSet, in parent: AnyObject?) {
+		let action: Action = .treeInsertedNewObjects(indexSet: indexSet, parent: parent)
+		invocations.append(action)
 	}
 }
