@@ -8,25 +8,6 @@
 import XCTest
 @testable import Node
 
-final class TreeTests: XCTestCase {
-
-	var sut: Tree<ObjectMock>!
-
-	var delegate: TreeDelegateSpy!
-
-	override func setUpWithError() throws {
-		delegate = TreeDelegateSpy()
-		sut = Tree()
-		sut.delegate = delegate
-	}
-
-	override func tearDownWithError() throws {
-		sut = nil
-		delegate = nil
-	}
-
-}
-
 // MARK: - Insert test-cases
 extension TreeTests {
 
@@ -52,6 +33,11 @@ extension TreeTests {
 		}
 		XCTAssertEqual(indexSet, IndexSet([0, 1, 2, 3]))
 		XCTAssertNil(parent)
+
+		XCTAssertNil(sut.parent(of: node0))
+		XCTAssertNil(sut.parent(of: node1))
+		XCTAssertNil(sut.parent(of: node2))
+		XCTAssertNil(sut.parent(of: node3))
 	}
 
 	func test_insert_to_root() {
@@ -83,6 +69,13 @@ extension TreeTests {
 		}
 		XCTAssertEqual(indexSet, IndexSet([2, 3]))
 		XCTAssertNil(parent)
+
+		XCTAssertNil(sut.parent(of: node0))
+		XCTAssertNil(sut.parent(of: node1))
+		XCTAssertNil(sut.parent(of: node2))
+		XCTAssertNil(sut.parent(of: node3))
+		XCTAssertNil(sut.parent(of: inserted0))
+		XCTAssertNil(sut.parent(of: inserted1))
 	}
 
 	func test_append_to_destination() {
@@ -116,6 +109,14 @@ extension TreeTests {
 		}
 		XCTAssertEqual(indexSet, IndexSet([0, 1]))
 		XCTAssertIdentical(parent, node00)
+
+		XCTAssertNil(sut.parent(of: node0))
+		XCTAssertNil(sut.parent(of: node1))
+		XCTAssertIdentical(sut.parent(of: node00), node0)
+		XCTAssertIdentical(sut.parent(of: node01), node0)
+		XCTAssertIdentical(sut.parent(of: node000), node00)
+		XCTAssertIdentical(sut.parent(of: node001), node00)
+
 	}
 
 	func test_insert_to_destination() {
@@ -149,32 +150,12 @@ extension TreeTests {
 		}
 		XCTAssertEqual(indexSet, IndexSet([1, 2]))
 		XCTAssertIdentical(parent, node0)
-	}
-}
 
-// MARK: - Nested data structs
-extension TreeTests {
-
-	final class ObjectMock: ReferenceIdentifiable {
-
-		var id: String
-
-		init(id: String) {
-			self.id = id
-		}
-	}
-}
-
-final class TreeDelegateSpy: TreeDelegate {
-
-	var invocations: [Action] = []
-
-	enum Action {
-		case treeInsertedNewObjects(indexSet: IndexSet, parent: AnyObject?)
-	}
-
-	func treeInsertedNewObjects(to indexSet: IndexSet, in parent: AnyObject?) {
-		let action: Action = .treeInsertedNewObjects(indexSet: indexSet, parent: parent)
-		invocations.append(action)
+		XCTAssertNil(sut.parent(of: node0))
+		XCTAssertNil(sut.parent(of: node1))
+		XCTAssertIdentical(sut.parent(of: node00), node0)
+		XCTAssertIdentical(sut.parent(of: node01), node0)
+		XCTAssertIdentical(sut.parent(of: inserted0), node0)
+		XCTAssertIdentical(sut.parent(of: inserted1), node0)
 	}
 }

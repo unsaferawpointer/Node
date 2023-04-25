@@ -7,10 +7,20 @@
 
 import Cocoa
 
+/// Interface of the editor view
+protocol EditorView: AnyObject {
+	/// Reload all data
+	func reloadData()
+}
+
 extension Editor {
 
 	/// ViewController of the Editor module
 	final class ViewController: NSViewController {
+
+		// MARK: - DI
+
+		var output: (EditorTableAdapter & ViewControllerOutput)!
 
 		// MARK: - UI-Properties
 
@@ -20,8 +30,13 @@ extension Editor {
 
 		// MARK: - Initialization
 
-		init() {
+		/// Basic initialization
+		///
+		/// - Parameters:
+		///    - configure: Configuration closure. Setup module here.
+		init(_ configure: (Editor.ViewController) -> Void) {
 			super.init(nibName: nil, bundle: nil)
+			configure(self)
 			configureUserInterface()
 			configureConstraints()
 		}
@@ -43,6 +58,15 @@ extension Editor.ViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		output?.viewControllerDidChangeState(.didLoad)
+	}
+}
+
+// MARK: - EditorView
+extension Editor.ViewController: EditorView {
+
+	func reloadData() {
+		table.reloadData()
 	}
 }
 
@@ -50,8 +74,12 @@ extension Editor.ViewController {
 private extension Editor.ViewController {
 
 	func configureUserInterface() {
-		table.headerView = nil
-		table.addTableColumn(.init(identifier: .mainColumn))
+		let column = NSTableColumn(identifier: .mainColumn)
+		column.resizingMask = [.autoresizingMask, .userResizingMask]
+		table.addTableColumn(column)
+
+		table.delegate = self
+		table.dataSource = self
 	}
 
 	func configureConstraints() {

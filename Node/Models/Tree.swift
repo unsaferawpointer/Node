@@ -25,11 +25,48 @@ extension Tree {
 		return cache.count
 	}
 
+	func parent(of object: Object) -> Object? {
+		guard let node = cache[object.refId] else {
+			fatalError("Tree has no object = \(object)")
+		}
+		return node.parent?.object
+	}
+
+	/// Returns object in specific object at specific index
+	///
+	/// - Parameters:
+	///    - parent: Parent object
+	///    - index: Offset of the child
+	func object(in parent: Object?, at index: Int) -> Object {
+		guard let parent else {
+			return nodes[index].object
+		}
+		guard let node = cache[parent.refId] else {
+			fatalError("Tree has no object = \(parent)")
+		}
+		return node.children[index].object
+	}
+
 	/// Enumerate all objects in DFT order
 	func enumerateObjects(block: @escaping (Object) -> Void) {
 		enumerateNodes(nodes) { node in
 			block(node.object)
 		}
+	}
+
+	/// Number of children for specific object
+	///
+	/// - Parameters:
+	///    - object: Parent
+	/// - Returns: Number of children
+	func numberOfChildren(of object: Object?) -> Int {
+		guard let object else {
+			return nodes.count
+		}
+		guard let node = cache[object.refId] else {
+			fatalError("Tree has no object = \(object)")
+		}
+		return node.children.count
 	}
 }
 
@@ -61,7 +98,7 @@ extension Tree {
 		switch (destination, index) {
 		case (.some(let parent), .some(let index)):
 			let indexSet = IndexSet(index..<index + nodes.count)
-			parent.children.insert(contentsOf: nodes, at: index)
+			parent.insertToChildren(nodes, at: index)
 			delegate?.treeInsertedNewObjects(to: indexSet, in: parent.object)
 		case (.none, .some(let index)):
 			let indexSet = IndexSet(index..<index + nodes.count)
@@ -70,7 +107,7 @@ extension Tree {
 		case (.some(let parent), .none):
 			let firstIndex = parent.children.count
 			let indexSet = IndexSet(firstIndex..<firstIndex + nodes.count)
-			parent.children.append(contentsOf: nodes)
+			parent.appendToChildren(nodes)
 			delegate?.treeInsertedNewObjects(to: indexSet, in: parent.object)
 		case (.none, .none):
 			let firstIndex = self.nodes.count

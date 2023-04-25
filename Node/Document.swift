@@ -9,6 +9,8 @@ import Cocoa
 
 class Document: NSDocument {
 
+	let dataProvider = DataProvider()
+
 	override init() {
 		super.init()
 	}
@@ -19,7 +21,7 @@ class Document: NSDocument {
 
 	override func makeWindowControllers() {
 		let windowController = WindowController(window: .main)
-		windowController.contentViewController = Editor.ViewController()
+		windowController.contentViewController = Editor.Assembly.build(dataProvider)
 		addWindowController(windowController)
 	}
 

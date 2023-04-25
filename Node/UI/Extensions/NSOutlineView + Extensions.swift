@@ -19,6 +19,7 @@ extension NSOutlineView {
 		view.allowsMultipleSelection = true
 		view.usesAutomaticRowHeights = false
 		view.allowsColumnResizing = true
+		view.autoresizesOutlineColumn = false
 		view.usesAlternatingRowBackgroundColors = true
 		view.intercellSpacing = .init(width: 0, height: 8)
 		view.columnAutoresizingStyle = .lastColumnOnlyAutoresizingStyle
