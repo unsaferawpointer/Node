@@ -5,6 +5,8 @@
 //  Created by Anton Cherkasov on 20.04.2023.
 //
 
+import Cocoa
+
 /// Basic interface of the view output
 protocol ViewControllerOutput {
 
@@ -13,6 +15,12 @@ protocol ViewControllerOutput {
 	/// - Parameters:
 	///    - state: New state of the viewcontroller
 	func viewControllerDidChangeState(_ state: ViewLifeCycle)
+
+	/// Validate menu item
+	///
+	/// - Parameters:
+	///    - selector: Action of the menu item
+	func validateMenuItem(selector: Selector) -> Bool
 }
 
 /// State of the viewcontroller

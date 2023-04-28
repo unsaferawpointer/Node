@@ -10,12 +10,15 @@ import Cocoa
 /// WindowController of the document
 class WindowController: NSWindowController {
 
-	lazy var toolbar: NSToolbar = {
+	lazy private var toolbar: NSToolbar = {
 		let toolbar = NSToolbar(identifier: "toolbar")
 		toolbar.sizeMode = .regular
-		toolbar.displayMode = .iconOnly
+		toolbar.displayMode = .default
+		toolbar.delegate = self
 		return toolbar
 	}()
+
+	private (set) var toolbarFactory: ToolbarFactoryProtocol = ToolbarFactory()
 
 	// MARK: - Initialization
 
@@ -40,5 +43,25 @@ extension WindowController {
 
 	override func windowDidLoad() {
 		super.windowDidLoad()
+	}
+}
+
+// MARK: - NSToolbarDelegate
+extension WindowController: NSToolbarDelegate {
+
+	func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+		return toolbarFactory.defaultItemIdentifiers
+	}
+
+	func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+		return toolbarFactory.allowedItemIdentifiers
+	}
+
+	func toolbar(
+		_ toolbar: NSToolbar,
+		itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier,
+		willBeInsertedIntoToolbar flag: Bool
+	) -> NSToolbarItem? {
+		return toolbarFactory.makeItem(itemIdentifier)
 	}
 }

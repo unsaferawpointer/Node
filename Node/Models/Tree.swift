@@ -10,8 +10,6 @@ import Foundation
 /// Representation of a hierarchical data structure
 final class Tree<Object> where Object: ReferenceIdentifiable {
 
-	weak var delegate: TreeDelegate?
-
 	private var nodes: [Node<Object>] = []
 
 	private var cache: [ObjectIdentifier: Node<Object>] = [:]
@@ -79,19 +77,24 @@ extension Tree {
 	///    - objects: Objects to insert
 	///    - destination: Destination of the insertion
 	///    - index: Index of the insertion
-	func insert(_ objects: [Object], to destination: Object?, at index: Int?) {
+	func insert(_ objects: [Object], to destination: Object?, at index: Int?, handler: (IndexSet, Object?) -> Void) {
 		let nodes = objects.map { Node($0) }
 		guard let destination else {
-			insert(nodes, to: nil, at: index)
+			insert(nodes, to: nil, at: index, handler: handler)
 			return
 		}
 		guard let parent = cache[destination.refId] else {
 			fatalError("Tree has no destination object = \(destination)")
 		}
-		insert(nodes, to: parent, at: index)
+		insert(nodes, to: parent, at: index, handler: handler)
 	}
 
-	private func insert(_ nodes: [Node<Object>], to destination: Node<Object>?, at index: Int?) {
+	private func insert(
+		_ nodes: [Node<Object>],
+		to destination: Node<Object>?,
+		at index: Int?,
+		handler: (IndexSet, Object?) -> Void
+	) {
 		// Update cache
 		insertToCache(nodes)
 
@@ -99,21 +102,21 @@ extension Tree {
 		case (.some(let parent), .some(let index)):
 			let indexSet = IndexSet(index..<index + nodes.count)
 			parent.insertToChildren(nodes, at: index)
-			delegate?.treeInsertedNewObjects(to: indexSet, in: parent.object)
+			handler(indexSet, parent.object)
 		case (.none, .some(let index)):
 			let indexSet = IndexSet(index..<index + nodes.count)
 			self.nodes.insert(contentsOf: nodes, at: index)
-			delegate?.treeInsertedNewObjects(to: indexSet, in: nil)
+			handler(indexSet, nil)
 		case (.some(let parent), .none):
 			let firstIndex = parent.children.count
 			let indexSet = IndexSet(firstIndex..<firstIndex + nodes.count)
 			parent.appendToChildren(nodes)
-			delegate?.treeInsertedNewObjects(to: indexSet, in: parent.object)
+			handler(indexSet, parent.object)
 		case (.none, .none):
 			let firstIndex = self.nodes.count
 			let indexSet = IndexSet(firstIndex..<firstIndex + nodes.count)
 			self.nodes.append(contentsOf: nodes)
-			delegate?.treeInsertedNewObjects(to: indexSet, in: nil)
+			handler(indexSet, nil)
 		}
 	}
 

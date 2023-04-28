@@ -23,6 +23,7 @@
 		4C0110DB29EA7E890084B5BB /* NSScrollView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110D629EA7E890084B5BB /* NSScrollView + Extensions.swift */; };
 		4C56603A29F54FF4004F60B9 /* ReferenceIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C56603929F54FF4004F60B9 /* ReferenceIdentifiable.swift */; };
 		4C56603C29F5543F004F60B9 /* TreeTests + Insert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C56603B29F5543F004F60B9 /* TreeTests + Insert.swift */; };
+		4CD8941C29FB92A2008A627C /* ToolbarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8941B29FB92A2008A627C /* ToolbarFactory.swift */; };
 		4CDE0ACF29F54E5C00FC3812 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE0ACE29F54E5C00FC3812 /* Tree.swift */; };
 		4CDE0AD129F54E7E00FC3812 /* Tree + Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */; };
 		4CEBDD6729F5C03B00019F43 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD6629F5C03B00019F43 /* Checkbox.swift */; };
@@ -32,7 +33,7 @@
 		4CEBDD7129F656AB00019F43 /* Editor.Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD7029F656AB00019F43 /* Editor.Presenter.swift */; };
 		4CEBDD7329F664B900019F43 /* Editor.NodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD7229F664B900019F43 /* Editor.NodeModel.swift */; };
 		4CEBDD7629F6E97B00019F43 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD7529F6E97B00019F43 /* DataProvider.swift */; };
-		4CEBDD7829F7010500019F43 /*  ViewControllerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD7729F7010500019F43 /*  ViewControllerOutput.swift */; };
+		4CEBDD7829F7010500019F43 /* ViewControllerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD7729F7010500019F43 /* ViewControllerOutput.swift */; };
 		4CEBDD7B29F7042800019F43 /* TreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD7A29F7042800019F43 /* TreeTests.swift */; };
 		4CEBDD7D29F7097500019F43 /* Editor.ViewController + NSOutlineViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD7C29F7097500019F43 /* Editor.ViewController + NSOutlineViewDataSource.swift */; };
 		4CEBDD7F29F709BB00019F43 /* Editor.ViewController + NSOutlineViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD7E29F709BB00019F43 /* Editor.ViewController + NSOutlineViewDelegate.swift */; };
@@ -42,7 +43,13 @@
 		4CEBDD8C29F8286A00019F43 /* EditorViewSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD8B29F8286A00019F43 /* EditorViewSpy.swift */; };
 		4CEBDD8E29F8455E00019F43 /* Tree + NodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD8D29F8455E00019F43 /* Tree + NodeTests.swift */; };
 		4CEBDD9029F845FC00019F43 /* ObjectMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD8F29F845FC00019F43 /* ObjectMock.swift */; };
-		4CFEF74B29F57E81000A2629 /* TreeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEF74A29F57E81000A2629 /* TreeDelegate.swift */; };
+		4CEBDD9A29F85EE100019F43 /* Editor.ContextMenuFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD9929F85EE100019F43 /* Editor.ContextMenuFactory.swift */; };
+		4CEBDD9D29F86B4200019F43 /* Editor.Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD9C29F86B4200019F43 /* Editor.Localization.swift */; };
+		4CEBDDA429F9AE3D00019F43 /* CommonMenuSupportable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDDA329F9AE3D00019F43 /* CommonMenuSupportable.swift */; };
+		4CEBDDA629F9B69000019F43 /* TableSupportable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDDA529F9B69000019F43 /* TableSupportable.swift */; };
+		4CEBDDA929F9B92600019F43 /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDDA829F9B92600019F43 /* Configurable.swift */; };
+		4CEBDDAB29FB009000019F43 /* DataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDDAA29FB009000019F43 /* DataProviderProtocol.swift */; };
+		4CEBDDAD29FB00A800019F43 /* DataProviderOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDDAC29FB00A800019F43 /* DataProviderOperation.swift */; };
 		4CFEF75129F5A04D000A2629 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEF75029F5A04D000A2629 /* Bindable.swift */; };
 		4CFEF75329F5A144000A2629 /* BindableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFEF75229F5A144000A2629 /* BindableTests.swift */; };
 /* End PBXBuildFile section */
@@ -86,6 +93,7 @@
 		4C0110D629EA7E890084B5BB /* NSScrollView + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSScrollView + Extensions.swift"; sourceTree = "<group>"; };
 		4C56603929F54FF4004F60B9 /* ReferenceIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceIdentifiable.swift; sourceTree = "<group>"; };
 		4C56603B29F5543F004F60B9 /* TreeTests + Insert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TreeTests + Insert.swift"; sourceTree = "<group>"; };
+		4CD8941B29FB92A2008A627C /* ToolbarFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarFactory.swift; sourceTree = "<group>"; };
 		4CDE0ACE29F54E5C00FC3812 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tree + Node.swift"; sourceTree = "<group>"; };
 		4CEBDD6629F5C03B00019F43 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
@@ -95,7 +103,7 @@
 		4CEBDD7029F656AB00019F43 /* Editor.Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.Presenter.swift; sourceTree = "<group>"; };
 		4CEBDD7229F664B900019F43 /* Editor.NodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.NodeModel.swift; sourceTree = "<group>"; };
 		4CEBDD7529F6E97B00019F43 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
-		4CEBDD7729F7010500019F43 /*  ViewControllerOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ViewControllerOutput.swift"; sourceTree = "<group>"; };
+		4CEBDD7729F7010500019F43 /* ViewControllerOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOutput.swift; sourceTree = "<group>"; };
 		4CEBDD7A29F7042800019F43 /* TreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeTests.swift; sourceTree = "<group>"; };
 		4CEBDD7C29F7097500019F43 /* Editor.ViewController + NSOutlineViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Editor.ViewController + NSOutlineViewDataSource.swift"; sourceTree = "<group>"; };
 		4CEBDD7E29F709BB00019F43 /* Editor.ViewController + NSOutlineViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Editor.ViewController + NSOutlineViewDelegate.swift"; sourceTree = "<group>"; };
@@ -105,7 +113,13 @@
 		4CEBDD8B29F8286A00019F43 /* EditorViewSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewSpy.swift; sourceTree = "<group>"; };
 		4CEBDD8D29F8455E00019F43 /* Tree + NodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tree + NodeTests.swift"; sourceTree = "<group>"; };
 		4CEBDD8F29F845FC00019F43 /* ObjectMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectMock.swift; sourceTree = "<group>"; };
-		4CFEF74A29F57E81000A2629 /* TreeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeDelegate.swift; sourceTree = "<group>"; };
+		4CEBDD9929F85EE100019F43 /* Editor.ContextMenuFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.ContextMenuFactory.swift; sourceTree = "<group>"; };
+		4CEBDD9C29F86B4200019F43 /* Editor.Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.Localization.swift; sourceTree = "<group>"; };
+		4CEBDDA329F9AE3D00019F43 /* CommonMenuSupportable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMenuSupportable.swift; sourceTree = "<group>"; };
+		4CEBDDA529F9B69000019F43 /* TableSupportable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSupportable.swift; sourceTree = "<group>"; };
+		4CEBDDA829F9B92600019F43 /* Configurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
+		4CEBDDAA29FB009000019F43 /* DataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderProtocol.swift; sourceTree = "<group>"; };
+		4CEBDDAC29FB00A800019F43 /* DataProviderOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderOperation.swift; sourceTree = "<group>"; };
 		4CFEF75029F5A04D000A2629 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		4CFEF75229F5A144000A2629 /* BindableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -224,13 +238,13 @@
 		4C0110CD29EA7D360084B5BB /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				4CEBDD9E29F8703800019F43 /* View */,
 				4C0110CE29EA7D4D0084B5BB /* Editor.swift */,
 				4CEBDD8029F70B1300019F43 /* Editor.Assembly.swift */,
-				4C0110D029EA7D920084B5BB /* Editor.ViewController.swift */,
-				4CEBDD7C29F7097500019F43 /* Editor.ViewController + NSOutlineViewDataSource.swift */,
-				4CEBDD7E29F709BB00019F43 /* Editor.ViewController + NSOutlineViewDelegate.swift */,
+				4CEBDD9929F85EE100019F43 /* Editor.ContextMenuFactory.swift */,
 				4CEBDD7029F656AB00019F43 /* Editor.Presenter.swift */,
 				4CEBDD7229F664B900019F43 /* Editor.NodeModel.swift */,
+				4CEBDD9B29F86B2200019F43 /* Localization */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -240,7 +254,6 @@
 			children = (
 				4CDE0ACE29F54E5C00FC3812 /* Tree.swift */,
 				4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */,
-				4CFEF74A29F57E81000A2629 /* TreeDelegate.swift */,
 			);
 			name = Tree;
 			sourceTree = "<group>";
@@ -249,8 +262,9 @@
 			isa = PBXGroup;
 			children = (
 				4C56603929F54FF4004F60B9 /* ReferenceIdentifiable.swift */,
+				4CEBDDA829F9B92600019F43 /* Configurable.swift */,
 				4CFEF75029F5A04D000A2629 /* Bindable.swift */,
-				4CEBDD7729F7010500019F43 /*  ViewControllerOutput.swift */,
+				4CEBDD7729F7010500019F43 /* ViewControllerOutput.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -276,6 +290,8 @@
 			isa = PBXGroup;
 			children = (
 				4CEBDD7529F6E97B00019F43 /* DataProvider.swift */,
+				4CEBDDAA29FB009000019F43 /* DataProviderProtocol.swift */,
+				4CEBDDAC29FB00A800019F43 /* DataProviderOperation.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -364,14 +380,43 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
+		4CEBDD9B29F86B2200019F43 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				4CEBDD9C29F86B4200019F43 /* Editor.Localization.swift */,
+			);
+			name = Localization;
+			sourceTree = "<group>";
+		};
+		4CEBDD9E29F8703800019F43 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4CEBDD7E29F709BB00019F43 /* Editor.ViewController + NSOutlineViewDelegate.swift */,
+				4CEBDD7C29F7097500019F43 /* Editor.ViewController + NSOutlineViewDataSource.swift */,
+				4C0110D029EA7D920084B5BB /* Editor.ViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		4CEBDDA729F9B6CC00019F43 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				4CEBDDA329F9AE3D00019F43 /* CommonMenuSupportable.swift */,
+				4CEBDDA529F9B69000019F43 /* TableSupportable.swift */,
+				4CEBDD6A29F5C10400019F43 /* ConfigurableField.swift */,
+				4CEBDD6C29F5C4FB00019F43 /* FieldConfiguration.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		4CFEF75429F5AD16000A2629 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				4CEBDDA729F9B6CC00019F43 /* Protocols */,
 				4CEBDD6529F5BEDC00019F43 /* Fields */,
 				4C0110C829EA74CC0084B5BB /* Extensions */,
-				4CEBDD6C29F5C4FB00019F43 /* FieldConfiguration.swift */,
-				4CEBDD6A29F5C10400019F43 /* ConfigurableField.swift */,
 				4C0110C629EA74930084B5BB /* WindowController.swift */,
+				4CD8941B29FB92A2008A627C /* ToolbarFactory.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -530,23 +575,30 @@
 				4CEBDD7129F656AB00019F43 /* Editor.Presenter.swift in Sources */,
 				4CEBDD8129F70B1300019F43 /* Editor.Assembly.swift in Sources */,
 				4CEBDD6B29F5C10400019F43 /* ConfigurableField.swift in Sources */,
+				4CEBDDAD29FB00A800019F43 /* DataProviderOperation.swift in Sources */,
 				4C56603A29F54FF4004F60B9 /* ReferenceIdentifiable.swift in Sources */,
 				4CEBDD6F29F5C81A00019F43 /* CheckboxConfiguration.swift in Sources */,
 				4C0110C729EA749F0084B5BB /* WindowController.swift in Sources */,
-				4CEBDD7829F7010500019F43 /*  ViewControllerOutput.swift in Sources */,
+				4CEBDD7829F7010500019F43 /* ViewControllerOutput.swift in Sources */,
 				4C0110D929EA7E890084B5BB /* NSOutlineView + Extensions.swift in Sources */,
+				4CEBDDA629F9B69000019F43 /* TableSupportable.swift in Sources */,
 				4C0110CA29EA74CC0084B5BB /* NSWindow + Extensions.swift in Sources */,
+				4CD8941C29FB92A2008A627C /* ToolbarFactory.swift in Sources */,
 				4CDE0AD129F54E7E00FC3812 /* Tree + Node.swift in Sources */,
+				4CEBDDA929F9B92600019F43 /* Configurable.swift in Sources */,
+				4CEBDDAB29FB009000019F43 /* DataProviderProtocol.swift in Sources */,
+				4CEBDDA429F9AE3D00019F43 /* CommonMenuSupportable.swift in Sources */,
+				4CEBDD9D29F86B4200019F43 /* Editor.Localization.swift in Sources */,
 				4CEBDD7629F6E97B00019F43 /* DataProvider.swift in Sources */,
 				4C0110DB29EA7E890084B5BB /* NSScrollView + Extensions.swift in Sources */,
 				4C01109829EA74380084B5BB /* AppDelegate.swift in Sources */,
 				4C0110D729EA7E890084B5BB /* NSTableColumn + Extentions.swift in Sources */,
-				4CFEF74B29F57E81000A2629 /* TreeDelegate.swift in Sources */,
 				4CFEF75129F5A04D000A2629 /* Bindable.swift in Sources */,
 				4CEBDD7F29F709BB00019F43 /* Editor.ViewController + NSOutlineViewDelegate.swift in Sources */,
 				4C0110D829EA7E890084B5BB /* NSTableView + Extentions.swift in Sources */,
 				4C0110CF29EA7D4D0084B5BB /* Editor.swift in Sources */,
 				4CEBDD6D29F5C4FB00019F43 /* FieldConfiguration.swift in Sources */,
+				4CEBDD9A29F85EE100019F43 /* Editor.ContextMenuFactory.swift in Sources */,
 				4CDE0ACF29F54E5C00FC3812 /* Tree.swift in Sources */,
 				4CEBDD7D29F7097500019F43 /* Editor.ViewController + NSOutlineViewDataSource.swift in Sources */,
 				4C0110D129EA7D920084B5BB /* Editor.ViewController.swift in Sources */,

@@ -40,6 +40,13 @@ protocol EditorTableAdapter: AnyObject {
 	func viewModel(for column: String, item: Any) -> (any FieldConfiguration)?
 }
 
+/// Common interface of Editor module presenter
+protocol EditorPresenter: AnyObject {
+
+	/// User clicked add menu item
+	func userClickedAddMenuItem()
+}
+
 extension Editor {
 
 	/// Presenter of the Editor module
@@ -49,9 +56,11 @@ extension Editor {
 
 		weak var view: EditorView?
 
-		var dataProvider: DataProviderProtocol
+		var localization: EditorLocalization = Editor.Localization()
 
-		init(dataProvider: DataProviderProtocol) {
+		var dataProvider: DataProviderProtocol & DataProviderOperation
+
+		init(dataProvider: DataProviderProtocol & DataProviderOperation) {
 			self.dataProvider = dataProvider
 		}
 	}
@@ -65,6 +74,26 @@ extension Editor.Presenter: ViewControllerOutput {
 			return
 		}
 		view?.reloadData()
+	}
+
+	func validateMenuItem(selector: Selector) -> Bool {
+		return true
+	}
+}
+
+// MARK: - EditorPresenter
+extension Editor.Presenter: EditorPresenter {
+
+	func userClickedAddMenuItem() {
+		let new = Editor.NodeModel(isDone: false, text: localization.newObjectPlaceholderTitle)
+		let destination = view?.getSelection().first
+		dataProvider.insert([new], to: destination, at: nil) { [weak self] indexes, destination in
+			guard let self else {
+				return
+			}
+			self.view?.insert(indexes, destination: destination)
+			self.view?.expand(destination, withAnimation: true)
+		}
 	}
 }
 

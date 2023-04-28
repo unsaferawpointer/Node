@@ -38,7 +38,10 @@ extension EditorPresenterTests {
 		sut.viewControllerDidChangeState(.didLoad)
 
 		// Assert
-		XCTAssertEqual(view.invocations, [.reloadData])
+		guard case .reloadData = view.invocations.first else {
+			return XCTFail("`reloadData must be invocked`")
+		}
+		XCTAssertEqual(view.invocations.count, 1)
 	}
 
 	func test_viewControllerDidChangeState_whenStateIsNotDidLoad() {
@@ -103,6 +106,49 @@ extension EditorPresenterTests {
 		let configuration = try XCTUnwrap(result as? CheckboxConfiguration)
 		XCTAssertIdentical(configuration.value, model.isDone)
 		XCTAssertIdentical(configuration.title, model.text)
+	}
+}
+
+// MARK: - EditorPresenter test-cases
+extension EditorPresenterTests {
+
+	func test_userClickedAddMenuItem() {
+		// Arrange
+		let first = Editor.NodeModel(isDone: false, text: "0")
+		view.selectionStub = [first, Editor.NodeModel(isDone: false, text: "1")]
+
+		dataProvider.insertionStub = (IndexSet([0, 2]), first)
+
+		// Act
+		sut.userClickedAddMenuItem()
+
+		// Assert
+		guard case let .insert(models, destination, index) = dataProvider.invocations.first else {
+			return XCTFail("`Insert` must be invocked")
+		}
+
+		XCTAssertEqual(models.count, 1)
+		XCTAssertIdentical(first, destination)
+		XCTAssertNil(index)
+
+		guard case .getSelection = view.invocations[0] else {
+			return XCTFail("`getSelection` must be invocked")
+		}
+
+		guard case let .insert(insertionIndexes, insertionDestination) = view.invocations[1] else {
+			return XCTFail("`Insert` must be invocked")
+		}
+
+		XCTAssertEqual(insertionIndexes, IndexSet([0, 2]))
+		XCTAssertIdentical(insertionDestination as? AnyObject, first)
+
+		guard case let .expand(expandedObject, animate) = view.invocations[2] else {
+			return XCTFail("`expand` must be invocked")
+		}
+
+		XCTAssertIdentical(expandedObject, first)
+		XCTAssertTrue(animate)
+		XCTAssertEqual(view.invocations.count, 3)
 	}
 }
 

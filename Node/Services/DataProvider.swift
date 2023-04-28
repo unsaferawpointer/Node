@@ -5,31 +5,13 @@
 //  Created by Anton Cherkasov on 24.04.2023.
 //
 
-/// Interface of the data provider
-protocol DataProviderProtocol {
-
-	typealias Model = Editor.NodeModel
-
-	/// Number of the children of the node
-	///
-	/// - Parameters:
-	///    - model: Node
-	func numberOfChildrenOfModel(model: Model?) -> Int
-
-	/// Returns child of the node
-	///
-	/// - Parameters:
-	///    - index: Index of the child
-	///    - model: Parent of the child
-	/// - Returns: Returns child
-	func child(index: Int, ofModel model: Model?) -> Any
-}
+import Foundation
 
 final class DataProvider {
 
 	typealias Model = Editor.NodeModel
 
-	lazy var tree: Tree<Model> = Tree<Model>()
+	lazy private (set) var tree: Tree<Model> = Tree<Model>()
 }
 
 // MARK: - DataProviderProtocol
@@ -41,5 +23,18 @@ extension DataProvider: DataProviderProtocol {
 
 	func child(index: Int, ofModel model: Model?) -> Any {
 		return tree.object(in: model, at: index)
+	}
+}
+
+// MARK: - DataProviderOperation
+extension DataProvider: DataProviderOperation {
+
+	func insert(
+		_ models: [Model],
+		to destination: Model?,
+		at index: Int?,
+		handler: (IndexSet, Model?) -> Void
+	) {
+		tree.insert(models, to: destination, at: index, handler: handler)
 	}
 }

@@ -12,17 +12,12 @@ final class TreeTests: XCTestCase {
 
 	var sut: Tree<ObjectMock>!
 
-	var delegate: TreeDelegateSpy!
-
 	override func setUpWithError() throws {
-		delegate = TreeDelegateSpy()
 		sut = Tree()
-		sut.delegate = delegate
 	}
 
 	override func tearDownWithError() throws {
 		sut = nil
-		delegate = nil
 	}
 
 }
@@ -40,9 +35,9 @@ extension TreeTests {
 		let node000 = ObjectMock(id: "0-0-0")
 		let node001 = ObjectMock(id: "0-0-1")
 
-		sut.insert([node0, node1], to: nil, at: nil)
-		sut.insert([node00, node01], to: node0, at: nil)
-		sut.insert([node000, node001], to: node00, at: nil)
+		sut.insert([node0, node1], to: nil, at: nil, handler: { _, _  in })
+		sut.insert([node00, node01], to: node0, at: nil, handler: { _, _  in })
+		sut.insert([node000, node001], to: node00, at: nil, handler: { _, _  in })
 
 		// Act
 		let result = sut.numberOfChildren(of: node00)
@@ -61,34 +56,14 @@ extension TreeTests {
 		let node000 = ObjectMock(id: "0-0-0")
 		let node001 = ObjectMock(id: "0-0-1")
 
-		sut.insert([node0, node1], to: nil, at: nil)
-		sut.insert([node00, node01], to: node0, at: nil)
-		sut.insert([node000, node001], to: node00, at: nil)
+		sut.insert([node0, node1], to: nil, at: nil, handler: { _, _  in })
+		sut.insert([node00, node01], to: node0, at: nil, handler: { _, _  in })
+		sut.insert([node000, node001], to: node00, at: nil, handler: { _, _  in })
 
 		// Act
 		let result = sut.numberOfChildren(of: nil)
 
 		// Assert
 		XCTAssertEqual(result, 2)
-	}
-}
-
-// MARK: - Nested data structs
-extension TreeTests {
-
-
-}
-
-final class TreeDelegateSpy: TreeDelegate {
-
-	var invocations: [Action] = []
-
-	enum Action {
-		case treeInsertedNewObjects(indexSet: IndexSet, parent: AnyObject?)
-	}
-
-	func treeInsertedNewObjects(to indexSet: IndexSet, in parent: AnyObject?) {
-		let action: Action = .treeInsertedNewObjects(indexSet: indexSet, parent: parent)
-		invocations.append(action)
 	}
 }

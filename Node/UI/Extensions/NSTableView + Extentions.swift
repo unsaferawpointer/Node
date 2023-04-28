@@ -14,4 +14,13 @@ extension NSTableView {
 			addTableColumn(column)
 		}
 	}
+
+	var effectiveSelection: IndexSet {
+		guard clickedRow != -1 else {
+			return selectedRowIndexes
+		}
+		return selectedRowIndexes.contains(clickedRow)
+				? selectedRowIndexes
+				: IndexSet(integer: clickedRow)
+	}
 }

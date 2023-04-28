@@ -8,7 +8,7 @@
 import Cocoa
 
 /// Interface of the editor view
-protocol EditorView: AnyObject {
+protocol EditorView: AnyObject, TableSupportable {
 	/// Reload all data
 	func reloadData()
 }
@@ -20,7 +20,7 @@ extension Editor {
 
 		// MARK: - DI
 
-		var output: (EditorTableAdapter & ViewControllerOutput)!
+		var output: (EditorTableAdapter & ViewControllerOutput & Presenter)!
 
 		// MARK: - UI-Properties
 
@@ -70,6 +70,33 @@ extension Editor.ViewController: EditorView {
 	}
 }
 
+// MARK: - TableSupportable
+extension Editor.ViewController: TableSupportable {
+
+	func getSelection() -> [Editor.NodeModel] {
+		return table.effectiveSelection.compactMap {
+			table.item(atRow: $0) as? Editor.NodeModel
+		}
+	}
+
+	func insert(_ indexes: IndexSet, destination: Any?) {
+		table.insertItems(at: indexes, inParent: destination, withAnimation: [.effectFade, .slideRight])
+	}
+
+	func expand(_ object: AnyObject?, withAnimation animate: Bool) {
+		if animate {
+			table.animator().expandItem(object, expandChildren: false)
+		} else {
+			table.expandItem(object, expandChildren: false)
+		}
+	}
+
+	func select(_ objects: [AnyObject]) {
+		let indexes = objects.map { table.row(forItem: $0) }
+		table.selectRowIndexes(IndexSet(indexes), byExtendingSelection: false)
+	}
+}
+
 // MARK: - Helpers
 private extension Editor.ViewController {
 
@@ -80,6 +107,8 @@ private extension Editor.ViewController {
 
 		table.delegate = self
 		table.dataSource = self
+
+		table.menu = Editor.ContextMenuFactory.build()
 	}
 
 	func configureConstraints() {
@@ -96,6 +125,25 @@ private extension Editor.ViewController {
 				scrollview.trailingAnchor.constraint(equalTo: view.trailingAnchor)
 			]
 		)
+	}
+}
+
+// MARK: - NSMenuItemValidation
+extension Editor.ViewController: NSMenuItemValidation {
+
+	func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+		guard let action = menuItem.action else {
+			return false
+		}
+		return output?.validateMenuItem(selector: action) ?? false
+	}
+}
+
+// MARK: - CommonMenuSupportable
+extension Editor.ViewController: CommonMenuSupportable {
+
+	func newObject(_ sender: Any?) {
+		output?.userClickedAddMenuItem()
 	}
 }
 
