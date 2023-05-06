@@ -9,7 +9,7 @@ import Cocoa
 
 extension NSScrollView {
 
-	static let `default`: NSScrollView = {
+	static func makeDefault() -> NSScrollView {
 		let view = NSScrollView()
 		view.borderType = .noBorder
 		view.hasHorizontalScroller = false
@@ -17,5 +17,5 @@ extension NSScrollView {
 		view.hasVerticalScroller = true
 		view.drawsBackground = false
 		return view
-	}()
+	}
 }

@@ -9,7 +9,7 @@ import Cocoa
 
 extension NSOutlineView {
 
-	static let `default`: NSOutlineView = {
+	static func makeDefault() -> NSOutlineView {
 		let view = NSOutlineView()
 		view.style = .inset
 		view.focusRingType = .default
@@ -24,5 +24,5 @@ extension NSOutlineView {
 		view.intercellSpacing = .init(width: 0, height: 8)
 		view.columnAutoresizingStyle = .lastColumnOnlyAutoresizingStyle
 		return view
-	}()
+	}
 }

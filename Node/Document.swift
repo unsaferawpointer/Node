@@ -20,7 +20,10 @@ class Document: NSDocument {
 	}
 
 	override func makeWindowControllers() {
-		let windowController = WindowController(window: .main)
+		let window = NSWindow.makeDefault()
+		window.tabbingMode = .preferred
+		let windowController = WindowController(window: window)
+		windowController.shouldCascadeWindows = true
 		windowController.contentViewController = Editor.Assembly.build(dataProvider)
 		addWindowController(windowController)
 	}

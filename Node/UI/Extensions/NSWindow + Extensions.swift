@@ -9,7 +9,7 @@ import Cocoa
 
 extension NSWindow {
 
-	static let main: NSWindow = {
+	static func makeDefault() -> NSWindow {
 		let window = NSWindow()
 		window.minSize = .init(width: 640, height: 480)
 		window.styleMask = [
@@ -30,5 +30,5 @@ extension NSWindow {
 		window.toolbarStyle = .unified
 		window.identifier = .init("main_window")
 		return window
-	}()
+	}
 }

@@ -24,9 +24,9 @@ extension Editor {
 
 		// MARK: - UI-Properties
 
-		lazy var scrollview: NSScrollView	 = .default
+		lazy var scrollview: NSScrollView	 = NSScrollView.makeDefault()
 
-		lazy var table: NSOutlineView		 = .default
+		lazy var table: NSOutlineView		 = NSOutlineView.makeDefault()
 
 		// MARK: - Initialization
 
