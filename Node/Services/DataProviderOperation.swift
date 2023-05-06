@@ -23,4 +23,9 @@ protocol DataProviderOperation {
 		at index: Int?,
 		handler: (IndexSet, Editor.NodeModel?) -> Void
 	)
+
+	func remove(
+		_ models: [Editor.NodeModel],
+		handler: (IndexSet, Editor.NodeModel?) -> Void
+	)
 }

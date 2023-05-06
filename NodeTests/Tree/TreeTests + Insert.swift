@@ -13,18 +13,17 @@ extension TreeTests {
 
 	func test_append_to_empty_tree() {
 		// Arrange
-		let node0 = ObjectMock(id: "0")
-		let node1 = ObjectMock(id: "1")
-		let node2 = ObjectMock(id: "2")
-		let node3 = ObjectMock(id: "3")
+		let object0 = ObjectMock(id: "0")
+		let object1 = ObjectMock(id: "1")
+		let object2 = ObjectMock(id: "2")
+		let object3 = ObjectMock(id: "3")
 
-		var destination: ObjectMock?
-		var indexSet: IndexSet?
+		var invocations: [Invocation] = []
 
 		// Act
-		sut.insert([node0, node1, node2, node3], to: nil, at: nil) { indexes, object in
-			indexSet = indexes
-			destination = object
+		sut.insert([object0, object1, object2, object3], to: nil, at: nil) { indexes, parent in
+			let invocation = Invocation(indexes: indexes, object: parent)
+			invocations.append(invocation)
 		}
 
 		// Assert
@@ -34,34 +33,38 @@ extension TreeTests {
 			identifiers.append(object.id)
 		}
 
-		XCTAssertNil(sut.parent(of: node0))
-		XCTAssertNil(sut.parent(of: node1))
-		XCTAssertNil(sut.parent(of: node2))
-		XCTAssertNil(sut.parent(of: node3))
+		XCTAssertNil(sut.parent(of: object0))
+		XCTAssertNil(sut.parent(of: object1))
+		XCTAssertNil(sut.parent(of: object2))
+		XCTAssertNil(sut.parent(of: object3))
 
-		XCTAssertNil(destination)
-		XCTAssertEqual(indexSet, .init([0, 1, 2, 3]))
+		XCTAssertEqual(invocations[0].indexes, IndexSet([0, 1, 2, 3]))
+		XCTAssertNil(invocations[0].object)
 	}
 
 	func test_insert_to_root() {
 		// Arrange
-		let node0 = ObjectMock(id: "0")
-		let node1 = ObjectMock(id: "1")
-		let node2 = ObjectMock(id: "2")
-		let node3 = ObjectMock(id: "3")
+		let object0 = ObjectMock(id: "0")
+		let object1 = ObjectMock(id: "1")
+		let object2 = ObjectMock(id: "2")
+		let object3 = ObjectMock(id: "3")
 
-		sut.insert([node0, node1, node2, node3], to: nil, at: nil, handler: { _, _ in })
+		sut = Tree {
+			object0
+			object1
+			object2
+			object3
+		}
 
 		let inserted0 = ObjectMock(id: "inserted0")
 		let inserted1 = ObjectMock(id: "inserted1")
 
-		var parent: ObjectMock?
-		var indexSet: IndexSet?
+		var invocations: [Invocation] = []
 
 		// Act
-		sut.insert([inserted0, inserted1], to: nil, at: 2) { indexes, object in
-			parent = object
-			indexSet = indexes
+		sut.insert([inserted0, inserted1], to: nil, at: 2) { indexes, parent in
+			let invocation = Invocation(indexes: indexes, object: parent)
+			invocations.append(invocation)
 		}
 
 		// Assert
@@ -72,37 +75,41 @@ extension TreeTests {
 		}
 		XCTAssertEqual(identifiers, ["0", "1", "inserted0", "inserted1", "2", "3"])
 
-		XCTAssertNil(sut.parent(of: node0))
-		XCTAssertNil(sut.parent(of: node1))
-		XCTAssertNil(sut.parent(of: node2))
-		XCTAssertNil(sut.parent(of: node3))
+		XCTAssertNil(sut.parent(of: object0))
+		XCTAssertNil(sut.parent(of: object1))
+		XCTAssertNil(sut.parent(of: object2))
+		XCTAssertNil(sut.parent(of: object3))
 		XCTAssertNil(sut.parent(of: inserted0))
 		XCTAssertNil(sut.parent(of: inserted1))
 
-		XCTAssertNil(parent)
-		XCTAssertEqual(indexSet, IndexSet([2, 3]))
+		XCTAssertNil(invocations[0].object)
+		XCTAssertEqual(invocations[0].indexes, IndexSet([2, 3]))
 	}
 
 	func test_append_to_destination() {
 		// Arrange
-		let node0 = ObjectMock(id: "0")
-		let node1 = ObjectMock(id: "1")
-		let node00 = ObjectMock(id: "0-0")
-		let node01 = ObjectMock(id: "0-1")
 
-		let node000 = ObjectMock(id: "0-0-0")
-		let node001 = ObjectMock(id: "0-0-1")
+		let object0 = ObjectMock(id: "0")
+		let object00 = ObjectMock(id: "0-0")
+		let object000 = ObjectMock(id: "0-0-0")
+		let object001 = ObjectMock(id: "0-0-1")
+		let object01 = ObjectMock(id: "0-1")
+		let object1 = ObjectMock(id: "1")
 
-		sut.insert([node0, node1], to: nil, at: nil, handler: { _, _ in })
-		sut.insert([node00, node01], to: node0, at: nil, handler: { _, _ in })
+		sut = Tree {
+			Node(object0) {
+				Node(object00)
+				Node(object01)
+			}
+			Node(object1)
+		}
 
-		var parent: ObjectMock?
-		var indexSet: IndexSet?
+		var invocations: [Invocation] = []
 
 		// Act
-		sut.insert([node000, node001], to: node00, at: nil) { indexes, object in
-			parent = object
-			indexSet = indexes
+		sut.insert([object000, object001], to: object00, at: nil) { indexes, parent in
+			let invocation = Invocation(indexes: indexes, object: parent)
+			invocations.append(invocation)
 		}
 
 		// Assert
@@ -113,38 +120,42 @@ extension TreeTests {
 		}
 		XCTAssertEqual(identifiers, ["0", "0-0", "0-0-0", "0-0-1", "0-1", "1"])
 
-		XCTAssertNil(sut.parent(of: node0))
-		XCTAssertNil(sut.parent(of: node1))
-		XCTAssertIdentical(sut.parent(of: node00), node0)
-		XCTAssertIdentical(sut.parent(of: node01), node0)
-		XCTAssertIdentical(sut.parent(of: node000), node00)
-		XCTAssertIdentical(sut.parent(of: node001), node00)
+		XCTAssertNil(sut.parent(of: object0))
+		XCTAssertNil(sut.parent(of: object1))
+		XCTAssertIdentical(sut.parent(of: object00), object0)
+		XCTAssertIdentical(sut.parent(of: object01), object0)
+		XCTAssertIdentical(sut.parent(of: object000), object00)
+		XCTAssertIdentical(sut.parent(of: object001), object00)
 
-		XCTAssertEqual(indexSet, IndexSet([0, 1]))
-		XCTAssertIdentical(parent, node00)
-
+		XCTAssertEqual(invocations[0].indexes, IndexSet([0, 1]))
+		XCTAssertIdentical(invocations[0].object, object00)
 	}
 
 	func test_insert_to_destination() {
 		// Arrange
-		let node0 = ObjectMock(id: "0")
-		let node1 = ObjectMock(id: "1")
-		let node00 = ObjectMock(id: "0-0")
-		let node01 = ObjectMock(id: "0-1")
+
+		let object0 = ObjectMock(id: "0")
+		let object00 = ObjectMock(id: "0-0")
+		let object01 = ObjectMock(id: "0-1")
+		let object1 = ObjectMock(id: "1")
 
 		let inserted0 = ObjectMock(id: "inserted0")
 		let inserted1 = ObjectMock(id: "inserted1")
 
-		sut.insert([node0, node1], to: nil, at: nil, handler: {_, _ in })
-		sut.insert([node00, node01], to: node0, at: nil, handler: { _, _ in })
+		var invocations: [Invocation] = []
 
-		var parent: ObjectMock?
-		var indexSet: IndexSet?
+		sut = Tree {
+			Node(object0) {
+				object00
+				object01
+			}
+			Node(object1)
+		}
 
 		// Act
-		sut.insert([inserted0, inserted1], to: node0, at: 1) { indexes, object in
-			parent = object
-			indexSet = indexes
+		sut.insert([inserted0, inserted1], to: object0, at: 1) { indexes, parent in
+			let invocation = Invocation(indexes: indexes, object: parent)
+			invocations.append(invocation)
 		}
 
 		// Assert
@@ -155,14 +166,23 @@ extension TreeTests {
 		}
 		XCTAssertEqual(identifiers, ["0", "0-0", "inserted0", "inserted1", "0-1", "1"])
 
-		XCTAssertNil(sut.parent(of: node0))
-		XCTAssertNil(sut.parent(of: node1))
-		XCTAssertIdentical(sut.parent(of: node00), node0)
-		XCTAssertIdentical(sut.parent(of: node01), node0)
-		XCTAssertIdentical(sut.parent(of: inserted0), node0)
-		XCTAssertIdentical(sut.parent(of: inserted1), node0)
+		XCTAssertNil(sut.parent(of: object0))
+		XCTAssertNil(sut.parent(of: object1))
+		XCTAssertIdentical(sut.parent(of: object00), object0)
+		XCTAssertIdentical(sut.parent(of: object01), object0)
+		XCTAssertIdentical(sut.parent(of: inserted0), object0)
+		XCTAssertIdentical(sut.parent(of: inserted1), object0)
 
-		XCTAssertEqual(indexSet, IndexSet([1, 2]))
-		XCTAssertIdentical(parent, node0)
+		XCTAssertEqual(invocations[0].indexes, IndexSet([1, 2]))
+		XCTAssertIdentical(invocations[0].object, object0)
+	}
+}
+
+// MARK: Nested data structs
+private extension TreeTests {
+
+	struct Invocation {
+		var indexes: IndexSet
+		var object: ObjectMock?
 	}
 }

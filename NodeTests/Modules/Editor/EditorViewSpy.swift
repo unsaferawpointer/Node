@@ -18,7 +18,23 @@ final class EditorViewSpy {
 // MARK: - EditorView
 extension EditorViewSpy: EditorView {
 
-	func getSelection() -> [Node.Editor.NodeModel] {
+	func remove(_ indexes: IndexSet, parent: Any?) {
+		invocations.append(.remove(indexes, parent: parent))
+	}
+
+	func update(_ object: Any?) {
+		invocations.append(.update(object))
+	}
+
+	func startUpdating() {
+		invocations.append(.startUpdating)
+	}
+
+	func endUpdating() {
+		invocations.append(.endUpdating)
+	}
+
+	func getSelection() -> [Editor.NodeModel] {
 		invocations.append(.getSelection)
 		return selectionStub
 	}
@@ -49,5 +65,9 @@ extension EditorViewSpy {
 		case insert(indexes: IndexSet, destination: Any?)
 		case expand(object: AnyObject?, animate: Bool)
 		case select(_ objects: [AnyObject])
+		case remove(_ indexes: IndexSet, parent: Any?)
+		case update(_ object: Any?)
+		case startUpdating
+		case endUpdating
 	}
 }

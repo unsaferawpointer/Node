@@ -32,6 +32,14 @@ extension Editor.ContextMenuFactory {
 				item.action = #selector(CommonMenuSupportable.newObject(_:))
 				return item
 			}())
+
+			menu.addItem({
+				let item = NSMenuItem()
+				item.title = localization.deleteObjectMenuItem
+				item.keyEquivalent = "d"
+				item.action = #selector(CommonMenuSupportable.deleteObjects(_:))
+				return item
+			}())
 			return menu
 		}()
 

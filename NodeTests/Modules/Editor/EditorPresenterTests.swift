@@ -150,6 +150,95 @@ extension EditorPresenterTests {
 		XCTAssertTrue(animate)
 		XCTAssertEqual(view.invocations.count, 3)
 	}
+
+	func test_userClickedDeleteMenuItem_whenParentIsNil() {
+		// Arrange
+		let first = Editor.NodeModel(isDone: false, text: "0")
+		let second = Editor.NodeModel(isDone: false, text: "1")
+		view.selectionStub = [first, second]
+
+		dataProvider.deletionStub = (IndexSet([0, 1]), nil)
+
+		// Act
+		sut.userClickedDeleteMenuItem()
+
+		// Assert
+		guard case let .remove(models) = dataProvider.invocations.first else {
+			return XCTFail("`Remove` must be invocked")
+		}
+
+		XCTAssertEqual(models.count, 2)
+		XCTAssertIdentical(models[0], first)
+		XCTAssertIdentical(models[1], second)
+
+		guard case .getSelection = view.invocations[0] else {
+			return XCTFail("`getSelection` must be invocked")
+		}
+
+		guard case .startUpdating = view.invocations[1] else {
+			return XCTFail("`startUpdating` must be invocked")
+		}
+
+		guard case let .remove(deletionIndexes, parent) = view.invocations[2] else {
+			return XCTFail("`Remove` must be invocked")
+		}
+
+		XCTAssertEqual(deletionIndexes, IndexSet([0, 1]))
+		XCTAssertNil(parent)
+
+		guard case .endUpdating = view.invocations[3] else {
+			return XCTFail("`endUpdating` must be invocked")
+		}
+
+		XCTAssertEqual(view.invocations.count, 4)
+	}
+
+	func test_userClickedDeleteMenuItem_whenParentIsNotNil() throws {
+		// Arrange
+		let source = Editor.NodeModel(isDone: false, text: "0")
+		let child = Editor.NodeModel(isDone: false, text: "0-0")
+		view.selectionStub = [child]
+
+		dataProvider.deletionStub = (IndexSet([0]), source)
+
+		// Act
+		sut.userClickedDeleteMenuItem()
+
+		// Assert
+		guard case let .remove(models) = dataProvider.invocations.first else {
+			return XCTFail("`Remove` must be invocked")
+		}
+
+		XCTAssertEqual(models.count, 1)
+		XCTAssertIdentical(models[0], child)
+
+		guard case .getSelection = view.invocations[0] else {
+			return XCTFail("`getSelection` must be invocked")
+		}
+
+		guard case .startUpdating = view.invocations[1] else {
+			return XCTFail("`startUpdating` must be invocked")
+		}
+
+		guard case let .remove(deletionIndexes, parent) = view.invocations[2] else {
+			return XCTFail("`Remove` must be invocked")
+		}
+
+		XCTAssertEqual(deletionIndexes, IndexSet([0]))
+		XCTAssertIdentical(parent as? AnyObject, source)
+
+		guard case let .update(object) = view.invocations[3] else {
+			return XCTFail("`Update` must be invocked")
+		}
+
+		XCTAssertIdentical(object as? AnyObject, source)
+
+		guard case .endUpdating = view.invocations[4] else {
+			return XCTFail("`endUpdating` must be invocked")
+		}
+
+		XCTAssertEqual(view.invocations.count, 5)
+	}
 }
 
 private extension Editor.NodeModel {

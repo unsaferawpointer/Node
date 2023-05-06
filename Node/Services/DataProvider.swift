@@ -11,7 +11,7 @@ final class DataProvider {
 
 	typealias Model = Editor.NodeModel
 
-	lazy private (set) var tree: Tree<Model> = Tree<Model>()
+	lazy private (set) var tree: Tree<Model> = Tree<Model>(nodes: [])
 }
 
 // MARK: - DataProviderProtocol
@@ -36,5 +36,12 @@ extension DataProvider: DataProviderOperation {
 		handler: (IndexSet, Model?) -> Void
 	) {
 		tree.insert(models, to: destination, at: index, handler: handler)
+	}
+
+	func remove(
+		_ models: [Model],
+		handler: (IndexSet, Model?) -> Void
+	) {
+		tree.remove(models, handler: handler)
 	}
 }

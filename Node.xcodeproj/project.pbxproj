@@ -25,7 +25,10 @@
 		4C56603C29F5543F004F60B9 /* TreeTests + Insert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C56603B29F5543F004F60B9 /* TreeTests + Insert.swift */; };
 		4CD8941C29FB92A2008A627C /* ToolbarFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD8941B29FB92A2008A627C /* ToolbarFactory.swift */; };
 		4CDE0ACF29F54E5C00FC3812 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE0ACE29F54E5C00FC3812 /* Tree.swift */; };
-		4CDE0AD129F54E7E00FC3812 /* Tree + Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */; };
+		4CE0EF7C2A019B9800BD726B /* Sequence + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0EF7B2A019B9800BD726B /* Sequence + Extension.swift */; };
+		4CE0EF802A057EE200BD726B /* TreeTests + Remove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0EF7F2A057EE200BD726B /* TreeTests + Remove.swift */; };
+		4CE0EF842A05919000BD726B /* TreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0EF832A05919000BD726B /* TreeBuilder.swift */; };
+		4CE0EF862A05980E00BD726B /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0EF852A05980E00BD726B /* Node.swift */; };
 		4CEBDD6729F5C03B00019F43 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD6629F5C03B00019F43 /* Checkbox.swift */; };
 		4CEBDD6B29F5C10400019F43 /* ConfigurableField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD6A29F5C10400019F43 /* ConfigurableField.swift */; };
 		4CEBDD6D29F5C4FB00019F43 /* FieldConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEBDD6C29F5C4FB00019F43 /* FieldConfiguration.swift */; };
@@ -95,7 +98,10 @@
 		4C56603B29F5543F004F60B9 /* TreeTests + Insert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TreeTests + Insert.swift"; sourceTree = "<group>"; };
 		4CD8941B29FB92A2008A627C /* ToolbarFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarFactory.swift; sourceTree = "<group>"; };
 		4CDE0ACE29F54E5C00FC3812 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
-		4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tree + Node.swift"; sourceTree = "<group>"; };
+		4CE0EF7B2A019B9800BD726B /* Sequence + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence + Extension.swift"; sourceTree = "<group>"; };
+		4CE0EF7F2A057EE200BD726B /* TreeTests + Remove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TreeTests + Remove.swift"; sourceTree = "<group>"; };
+		4CE0EF832A05919000BD726B /* TreeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeBuilder.swift; sourceTree = "<group>"; };
+		4CE0EF852A05980E00BD726B /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		4CEBDD6629F5C03B00019F43 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		4CEBDD6A29F5C10400019F43 /* ConfigurableField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableField.swift; sourceTree = "<group>"; };
 		4CEBDD6C29F5C4FB00019F43 /* FieldConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldConfiguration.swift; sourceTree = "<group>"; };
@@ -252,8 +258,9 @@
 		4C56603829F54FD0004F60B9 /* Tree */ = {
 			isa = PBXGroup;
 			children = (
+				4CE0EF852A05980E00BD726B /* Node.swift */,
 				4CDE0ACE29F54E5C00FC3812 /* Tree.swift */,
-				4CDE0AD029F54E7E00FC3812 /* Tree + Node.swift */,
+				4CE0EF832A05919000BD726B /* TreeBuilder.swift */,
 			);
 			name = Tree;
 			sourceTree = "<group>";
@@ -261,6 +268,7 @@
 		4CDE0ACC29F54E4200FC3812 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4CE0EF872A065E3C00BD726B /* Extentions */,
 				4C56603929F54FF4004F60B9 /* ReferenceIdentifiable.swift */,
 				4CEBDDA829F9B92600019F43 /* Configurable.swift */,
 				4CFEF75029F5A04D000A2629 /* Bindable.swift */,
@@ -275,6 +283,14 @@
 				4C56603829F54FD0004F60B9 /* Tree */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4CE0EF872A065E3C00BD726B /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				4CE0EF7B2A019B9800BD726B /* Sequence + Extension.swift */,
+			);
+			name = Extentions;
 			sourceTree = "<group>";
 		};
 		4CEBDD6529F5BEDC00019F43 /* Fields */ = {
@@ -351,6 +367,7 @@
 			children = (
 				4CEBDD7A29F7042800019F43 /* TreeTests.swift */,
 				4C56603B29F5543F004F60B9 /* TreeTests + Insert.swift */,
+				4CE0EF7F2A057EE200BD726B /* TreeTests + Remove.swift */,
 				4CEBDD8D29F8455E00019F43 /* Tree + NodeTests.swift */,
 			);
 			name = Tests;
@@ -574,6 +591,8 @@
 			files = (
 				4CEBDD7129F656AB00019F43 /* Editor.Presenter.swift in Sources */,
 				4CEBDD8129F70B1300019F43 /* Editor.Assembly.swift in Sources */,
+				4CE0EF7C2A019B9800BD726B /* Sequence + Extension.swift in Sources */,
+				4CE0EF862A05980E00BD726B /* Node.swift in Sources */,
 				4CEBDD6B29F5C10400019F43 /* ConfigurableField.swift in Sources */,
 				4CEBDDAD29FB00A800019F43 /* DataProviderOperation.swift in Sources */,
 				4C56603A29F54FF4004F60B9 /* ReferenceIdentifiable.swift in Sources */,
@@ -584,11 +603,11 @@
 				4CEBDDA629F9B69000019F43 /* TableSupportable.swift in Sources */,
 				4C0110CA29EA74CC0084B5BB /* NSWindow + Extensions.swift in Sources */,
 				4CD8941C29FB92A2008A627C /* ToolbarFactory.swift in Sources */,
-				4CDE0AD129F54E7E00FC3812 /* Tree + Node.swift in Sources */,
 				4CEBDDA929F9B92600019F43 /* Configurable.swift in Sources */,
 				4CEBDDAB29FB009000019F43 /* DataProviderProtocol.swift in Sources */,
 				4CEBDDA429F9AE3D00019F43 /* CommonMenuSupportable.swift in Sources */,
 				4CEBDD9D29F86B4200019F43 /* Editor.Localization.swift in Sources */,
+				4CE0EF842A05919000BD726B /* TreeBuilder.swift in Sources */,
 				4CEBDD7629F6E97B00019F43 /* DataProvider.swift in Sources */,
 				4C0110DB29EA7E890084B5BB /* NSScrollView + Extensions.swift in Sources */,
 				4C01109829EA74380084B5BB /* AppDelegate.swift in Sources */,
@@ -614,6 +633,7 @@
 			files = (
 				4CFEF75329F5A144000A2629 /* BindableTests.swift in Sources */,
 				4CEBDD7B29F7042800019F43 /* TreeTests.swift in Sources */,
+				4CE0EF802A057EE200BD726B /* TreeTests + Remove.swift in Sources */,
 				4CEBDD8E29F8455E00019F43 /* Tree + NodeTests.swift in Sources */,
 				4CEBDD8C29F8286A00019F43 /* EditorViewSpy.swift in Sources */,
 				4CEBDD9029F845FC00019F43 /* ObjectMock.swift in Sources */,

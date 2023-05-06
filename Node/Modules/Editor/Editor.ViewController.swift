@@ -83,6 +83,22 @@ extension Editor.ViewController: TableSupportable {
 		table.insertItems(at: indexes, inParent: destination, withAnimation: [.effectFade, .slideRight])
 	}
 
+	func remove(_ indexes: IndexSet, parent: Any?) {
+		table.removeItems(at: indexes, inParent: parent, withAnimation: [.effectFade, .slideLeft])
+	}
+
+	func update(_ object: Any?) {
+		table.reloadItem(object)
+	}
+
+	func startUpdating() {
+		table.beginUpdates()
+	}
+
+	func endUpdating() {
+		table.endUpdates()
+	}
+
 	func expand(_ object: AnyObject?, withAnimation animate: Bool) {
 		if animate {
 			table.animator().expandItem(object, expandChildren: false)
@@ -144,6 +160,10 @@ extension Editor.ViewController: CommonMenuSupportable {
 
 	func newObject(_ sender: Any?) {
 		output?.userClickedAddMenuItem()
+	}
+
+	func deleteObjects(_ sender: Any?) {
+		output?.userClickedDeleteMenuItem()
 	}
 }
 

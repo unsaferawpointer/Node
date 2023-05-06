@@ -20,6 +20,18 @@ protocol TableSupportable: AnyObject {
 	///    - destination: Destination of the insertion
 	func insert(_ indexes: IndexSet, destination: Any?)
 
+	/// Remove indexes in parent
+	func remove(_ indexes: IndexSet, parent: Any?)
+
+	/// Update object
+	func update(_ object: Any?)
+
+	/// Start batch updating
+	func startUpdating()
+
+	/// End batch updating
+	func endUpdating()
+
 	/// Expand row associated with specific object
 	///
 	/// - Parameters:

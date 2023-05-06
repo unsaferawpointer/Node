@@ -21,11 +21,11 @@ final class ToolbarFactory { }
 extension ToolbarFactory: ToolbarFactoryProtocol {
 
 	var defaultItemIdentifiers: [NSToolbarItem.Identifier] {
-		return [.newObject]
+		return [.newObject, .deleteObjects]
 	}
 
 	var allowedItemIdentifiers: [NSToolbarItem.Identifier] {
-		return [.newObject]
+		return [.newObject, .deleteObjects]
 	}
 
 	func makeItem(_ itemIdentifier: NSToolbarItem.Identifier) -> NSToolbarItem? {
@@ -42,6 +42,18 @@ extension ToolbarFactory: ToolbarFactoryProtocol {
 						$0.action = #selector(CommonMenuSupportable.newObject(_:))
 					}
 				}
+			case .deleteObjects:
+				return NSToolbarItem(itemIdentifier: .deleteObjects).configure {
+					$0.isNavigational = false
+					$0.label = "Delete"
+					$0.visibilityPriority = .high
+					$0.view = NSButton().configure {
+						$0.bezelStyle = .texturedRounded
+						$0.image = NSImage(systemSymbolName: "trash", accessibilityDescription: nil)
+						$0.target = nil
+						$0.action = #selector(CommonMenuSupportable.deleteObjects(_:))
+					}
+				}
 			default:
 				return nil
 		}
@@ -51,4 +63,6 @@ extension ToolbarFactory: ToolbarFactoryProtocol {
 private extension NSToolbarItem.Identifier {
 
 	static let newObject = NSToolbarItem.Identifier("newObject")
+
+	static let deleteObjects = NSToolbarItem.Identifier("deleteObjects")
 }

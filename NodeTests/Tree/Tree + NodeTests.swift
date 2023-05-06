@@ -10,10 +10,10 @@ import XCTest
 
 final class TreeNodeTests: XCTestCase {
 
-	var sut: Tree<ObjectMock>.Node<ObjectMock>!
+	var sut: Node<ObjectMock>!
 
 	override func setUpWithError() throws {
-		sut = Tree.Node(.init(id: "0"))
+		sut = Node<ObjectMock>(.init(id: "0"))
 	}
 
 	override func tearDownWithError() throws {
@@ -27,7 +27,7 @@ extension TreeNodeTests {
 
 	func test_append() {
 		// Arrange
-		let nodes: [Tree<ObjectMock>.Node<ObjectMock>] = [
+		let nodes: [Node<ObjectMock>] = [
 															.init(.init(id: "0")),
 															.init(.init(id: "1")),
 															.init(.init(id: "2")),
@@ -46,7 +46,7 @@ extension TreeNodeTests {
 
 	func test_insert() {
 		// Arrange
-		let nodes: [Tree<ObjectMock>.Node<ObjectMock>] = [
+		let nodes: [Node<ObjectMock>] = [
 															.init(.init(id: "0")),
 															.init(.init(id: "1")),
 															.init(.init(id: "2")),

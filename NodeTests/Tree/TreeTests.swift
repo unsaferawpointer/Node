@@ -13,7 +13,7 @@ final class TreeTests: XCTestCase {
 	var sut: Tree<ObjectMock>!
 
 	override func setUpWithError() throws {
-		sut = Tree()
+		sut = Tree(nodes: [])
 	}
 
 	override func tearDownWithError() throws {

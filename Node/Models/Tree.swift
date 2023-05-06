@@ -14,6 +14,15 @@ final class Tree<Object> where Object: ReferenceIdentifiable {
 
 	private var cache: [ObjectIdentifier: Node<Object>] = [:]
 
+	init(nodes: [Node<Object>]) {
+		self.nodes = nodes
+		enumerateNodes(nodes) { cache[$0.refId] = $0 }
+	}
+
+	convenience init(@TreeBuilder<Object> _ builder: () -> [Node<Object>]) {
+		self.init(nodes: builder())
+	}
+
 }
 
 extension Tree {
@@ -78,7 +87,7 @@ extension Tree {
 	///    - destination: Destination of the insertion
 	///    - index: Index of the insertion
 	func insert(_ objects: [Object], to destination: Object?, at index: Int?, handler: (IndexSet, Object?) -> Void) {
-		let nodes = objects.map { Node($0) }
+		let nodes = objects.map { Node<Object>($0) }
 		guard let destination else {
 			insert(nodes, to: nil, at: index, handler: handler)
 			return
@@ -122,13 +131,68 @@ extension Tree {
 
 }
 
+// MARK: - Remove
+extension Tree {
+
+	/// Remove objects from the tree
+	///
+	/// - Parameters:
+	///    - objects: Objects to remove
+	///    - destination: Source of the deletion
+	///    - index: Index of the insertion
+	func remove(_ objects: [Object], handler: (IndexSet, Object?) -> Void) {
+		let grouped = Dictionary(grouping: objects.map(\.refId)) { objectId -> ObjectIdentifier? in
+			guard let node = cache[objectId] else {
+				fatalError("Tree has no object with id = \(objectId)")
+			}
+			return node.parent?.object.refId
+		}
+
+		for (parentId, ids) in grouped {
+			remove(from: parentId, ids: ids, handler: handler)
+		}
+		removeFromCache(objects.map(\.refId))
+	}
+
+	private func remove(from parentId: ObjectIdentifier?, ids: [ObjectIdentifier], handler: (IndexSet, Object?) -> Void) {
+		if let parentId, let parent = cache[parentId] {
+			let indexes = ids.compactMap {
+				parent.children.firstIndex(where: \.refId, equalsTo: $0)
+			}
+			parent.remove(ids)
+			handler(IndexSet(indexes), parent.object)
+		} else {
+			let indexes = ids.compactMap {
+				nodes.firstIndex(where: \.refId, equalsTo: $0)
+			}
+			nodes.removeAll { ids.contains($0.refId) }
+			handler(IndexSet(indexes), nil)
+		}
+	}
+}
+
 // MARK: - Helpers
 private extension Tree {
 
 	func insertToCache(_ nodes: [Node<Object>]) {
 		enumerateNodes(nodes) { node in
 			let key = node.object.refId
+			guard cache[key] == nil else {
+				fatalError("Cache already contains key = \(key)")
+			}
 			cache[key] = node
+		}
+	}
+
+	func removeFromCache(_ ids: [ObjectIdentifier]) {
+		let nodes = ids.compactMap { cache[$0] }
+		removeFromCache(nodes)
+	}
+
+	func removeFromCache(_ nodes: [Node<Object>]) {
+		enumerateNodes(nodes) { node in
+			let key = node.object.refId
+			cache.removeValue(forKey: key)
 		}
 	}
 

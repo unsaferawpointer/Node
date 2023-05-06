@@ -45,6 +45,9 @@ protocol EditorPresenter: AnyObject {
 
 	/// User clicked add menu item
 	func userClickedAddMenuItem()
+
+	/// User clicked `Delete` menu item
+	func userClickedDeleteMenuItem()
 }
 
 extension Editor {
@@ -94,6 +97,24 @@ extension Editor.Presenter: EditorPresenter {
 			self.view?.insert(indexes, destination: destination)
 			self.view?.expand(destination, withAnimation: true)
 		}
+	}
+
+	func userClickedDeleteMenuItem() {
+		guard let deleted = view?.getSelection() else {
+			return
+		}
+		view?.startUpdating()
+		dataProvider.remove(deleted) { [weak self] indexes, parent in
+			guard let self else {
+				return
+			}
+			self.view?.remove(indexes, parent: parent)
+			guard let parent else {
+				return
+			}
+			self.view?.update(parent)
+		}
+		view?.endUpdating()
 	}
 }
 

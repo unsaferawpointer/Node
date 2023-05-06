@@ -10,6 +10,8 @@ protocol EditorLocalization {
 
 	var newObjectMenuItem: String { get }
 
+	var deleteObjectMenuItem: String { get }
+
 	var newObjectPlaceholderTitle: String { get }
 }
 
@@ -24,6 +26,10 @@ extension Editor.Localization: EditorLocalization {
 
 	var newObjectMenuItem: String {
 		return "New"
+	}
+
+	var deleteObjectMenuItem: String {
+		return "Delete"
 	}
 
 	var newObjectPlaceholderTitle: String {

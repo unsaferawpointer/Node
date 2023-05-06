@@ -16,6 +16,7 @@ final class DataProviderMock {
 	var childStub: Model = .init(isDone: .random(), text: UUID().uuidString)
 
 	var insertionStub: (IndexSet, Editor.NodeModel?)?
+	var deletionStub: (IndexSet, Editor.NodeModel?)?
 
 }
 
@@ -33,6 +34,15 @@ extension DataProviderMock: DataProviderProtocol {
 
 // MARK: - DataProviderOperation
 extension DataProviderMock: DataProviderOperation {
+
+	func remove(_ models: [Editor.NodeModel], handler: (IndexSet, Editor.NodeModel?) -> Void) {
+		let action: Action = .remove(models)
+		invocations.append(action)
+		guard let deletionStub else {
+			return
+		}
+		handler(deletionStub.0, deletionStub.1)
+	}
 
 	func insert(
 		_ models: [Editor.NodeModel],
@@ -52,5 +62,6 @@ extension DataProviderMock {
 
 	enum Action {
 		case insert(_ models: [Editor.NodeModel], destination: Editor.NodeModel?, index: Int?)
+		case remove(_ models: [Editor.NodeModel])
 	}
 }

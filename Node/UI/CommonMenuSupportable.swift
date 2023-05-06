@@ -15,4 +15,10 @@ protocol CommonMenuSupportable {
 	/// - Parameters:
 	///    - sender: Sender of the action
 	func newObject(_ sender: Any?)
+
+	/// Delete objects
+	///
+	/// - Parameters:
+	///    - sender: Sender of the action
+	func deleteObjects(_ sender: Any?)
 }
