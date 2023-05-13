@@ -5,13 +5,14 @@
 //  Created by Anton Cherkasov on 25.04.2023.
 //
 
+import Hierarchy
 @testable import Node
 
 final class ObjectMock: ReferenceIdentifiable {
 
-	var id: String
+	var value: String
 
-	init(id: String) {
-		self.id = id
+	init(value: String) {
+		self.value = value
 	}
 }

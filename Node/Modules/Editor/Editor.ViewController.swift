@@ -73,9 +73,9 @@ extension Editor.ViewController: EditorView {
 // MARK: - TableSupportable
 extension Editor.ViewController: TableSupportable {
 
-	func getSelection() -> [Editor.NodeModel] {
+	func getSelection() -> [Any] {
 		return table.effectiveSelection.compactMap {
-			table.item(atRow: $0) as? Editor.NodeModel
+			table.item(atRow: $0)
 		}
 	}
 
@@ -123,6 +123,9 @@ private extension Editor.ViewController {
 
 		table.delegate = self
 		table.dataSource = self
+
+		table.setDraggingSourceOperationMask([.copy, .delete], forLocal: false)
+		table.registerForDraggedTypes([.rows])
 
 		table.menu = Editor.ContextMenuFactory.build()
 	}

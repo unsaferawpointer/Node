@@ -11,7 +11,7 @@ import Foundation
 protocol TableSupportable: AnyObject {
 
 	/// Returns current selected objects
-	func getSelection() -> [Editor.NodeModel]
+	func getSelection() -> [Any]
 
 	/// Insert rows to specific destination
 	///

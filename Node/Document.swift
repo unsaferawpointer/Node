@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Hierarchy
 
 class Document: NSDocument {
 

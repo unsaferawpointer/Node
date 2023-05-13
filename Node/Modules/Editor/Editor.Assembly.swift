@@ -17,7 +17,7 @@ extension Editor {
 		/// - Parameters:
 		///    - dataProvider: DataProvider
 		/// - Returns: ViewController of the module
-		static func build(_ dataProvider: DataProviderProtocol & DataProviderOperation) -> NSViewController {
+		static func build(_ dataProvider: DataProviderProtocol) -> NSViewController {
 			let presenter = Editor.Presenter(dataProvider: dataProvider)
 			return Editor.ViewController { viewController in
 				viewController.output = presenter

@@ -12,7 +12,7 @@ final class EditorViewSpy {
 
 	var invocations: [Action] = []
 
-	var selectionStub: [Editor.NodeModel] = []
+	var selectionStub: [NodeModel] = []
 }
 
 // MARK: - EditorView
@@ -34,7 +34,7 @@ extension EditorViewSpy: EditorView {
 		invocations.append(.endUpdating)
 	}
 
-	func getSelection() -> [Editor.NodeModel] {
+	func getSelection() -> [Any] {
 		invocations.append(.getSelection)
 		return selectionStub
 	}

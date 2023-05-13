@@ -5,7 +5,7 @@
 //  Created by Anton Cherkasov on 24.04.2023.
 //
 
-import Foundation
+import Hierarchy
 import Cocoa
 
 /// Interface of Editor Table
@@ -38,6 +38,14 @@ protocol EditorTableAdapter: AnyObject {
 	///    - item: Node
 	/// - Returns: View-Model
 	func viewModel(for column: String, item: Any) -> (any FieldConfiguration)?
+
+	func moveItems(_ items: [Any], to target: Any?)
+
+	func moveItems(_ items: [Any], to target: Any, at index: Int)
+
+	func moveItemsToRoot(_ items: [Any], at index: Int)
+
+	func canMove(_ items: [Any], to target: Any?) -> Bool
 }
 
 /// Common interface of Editor module presenter
@@ -61,11 +69,12 @@ extension Editor {
 
 		var localization: EditorLocalization = Editor.Localization()
 
-		var dataProvider: DataProviderProtocol & DataProviderOperation
+		var dataProvider: DataProviderProtocol
 
-		init(dataProvider: DataProviderProtocol & DataProviderOperation) {
+		init(dataProvider: DataProviderProtocol) {
 			self.dataProvider = dataProvider
 		}
+
 	}
 }
 
@@ -88,60 +97,101 @@ extension Editor.Presenter: ViewControllerOutput {
 extension Editor.Presenter: EditorPresenter {
 
 	func userClickedAddMenuItem() {
-		let new = Editor.NodeModel(isDone: false, text: localization.newObjectPlaceholderTitle)
-		let destination = view?.getSelection().first
-		dataProvider.insert([new], to: destination, at: nil) { [weak self] indexes, destination in
-			guard let self else {
-				return
-			}
-			self.view?.insert(indexes, destination: destination)
-			self.view?.expand(destination, withAnimation: true)
-		}
+		let new = NodeModel(isDone: false, text: localization.newObjectPlaceholderTitle)
+		let first = view?.getSelection().first as? NodeModel
+
+		let operations = dataProvider.addItems([new], to: first)
+		performAnimation(operations)
+
+		view?.expand(first, withAnimation: true)
 	}
 
 	func userClickedDeleteMenuItem() {
-		guard let deleted = view?.getSelection() else {
-			return
-		}
-		view?.startUpdating()
-		dataProvider.remove(deleted) { [weak self] indexes, parent in
-			guard let self else {
-				return
-			}
-			self.view?.remove(indexes, parent: parent)
-			guard let parent else {
-				return
-			}
-			self.view?.update(parent)
-		}
-		view?.endUpdating()
+		let selectedItems = view?.getSelection() as? [NodeModel]
+		let operations = dataProvider.removeItems(selectedItems ?? [])
+		performAnimation(operations)
 	}
+
 }
 
 // MARK: - EditorPresenter
 extension Editor.Presenter: EditorTableAdapter {
 
-	typealias Model = Editor.NodeModel
+	typealias Model = NodeModel
 
 	func numberOfChildrenOfItem(item: Any?) -> Int {
-		return dataProvider.numberOfChildrenOfModel(model: item as? Model)
+		return dataProvider.numberOfChildren(of: item as? Model)
 	}
 
 	func child(index: Int, ofItem item: Any?) -> Any {
-		return dataProvider.child(index: index, ofModel: item as? Model)
+		return dataProvider.child(ofItem: item as? Model, at: index)
 	}
 
 	func isItemExpandable(item: Any) -> Bool {
 		guard let model = item as? Model else {
-			fatalError("This type is not supported. Type = \(item)")
+			fatalError("This type is not supported. Type = \(item.self)")
 		}
-		return dataProvider.numberOfChildrenOfModel(model: model) > 0
+		return dataProvider.numberOfChildren(of: model) > 0
+	}
+
+	func moveItems(_ items: [Any], to target: Any?) {
+		guard let items = items as? [Model] else {
+			fatalError("This type is not supported. Type = \(items.self)")
+		}
+		let target = target as? Model
+		let operations = dataProvider.moveItems(items, to: target)
+		performAnimation(operations)
+		view?.expand(target, withAnimation: true)
+	}
+
+	func moveItems(_ items: [Any], to target: Any, at index: Int) {
+		guard let items = items as? [Model], let target = target as? Model else {
+			return
+		}
+		let operations = dataProvider.moveItems(items, to: target, at: index)
+		performAnimation(operations)
+		view?.expand(target, withAnimation: true)
+	}
+
+	func moveItemsToRoot(_ items: [Any], at index: Int) {
+		guard let items = items as? [Model] else {
+			fatalError("This type is not supported. Type = \(items.self)")
+		}
+		let operations = dataProvider.moveItemsToRoot(items, at: index)
+		performAnimation(operations)
+	}
+
+	func canMove(_ items: [Any], to target: Any?) -> Bool {
+		guard let items = items as? [Model] else {
+			fatalError("This type is not supported. Type = \(items.self)")
+		}
+		let target = target as? Model
+		return dataProvider.canMove(items, to: target)
 	}
 
 	func viewModel(for column: String, item: Any) -> (any FieldConfiguration)? {
 		guard let model = item as? Model else {
-			return nil
+			fatalError("This type is not supported. Type = \(item.self)")
 		}
 		return CheckboxConfiguration(value: model.isDone, title: model.text)
+	}
+}
+
+// MARK: - Helpers
+private extension Editor.Presenter {
+
+	func performAnimation(_ operations: [HierarchyDiffAction<Model>]) {
+		view?.startUpdating()
+		for operation in operations {
+			switch operation {
+				case .updateItem(let item):
+					if let item { view?.update(item) }
+				case .removeItems(let indexes, let parent):
+					view?.remove(indexes, parent: parent)
+				case .insertItems(let indexes, let parent):
+					view?.insert(indexes, destination: parent)
+			}
+		}
+		view?.endUpdating()
 	}
 }

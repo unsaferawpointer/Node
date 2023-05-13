@@ -2,66 +2,106 @@
 //  DataProviderMock.swift
 //  NodeTests
 //
-//  Created by Anton Cherkasov on 25.04.2023.
+//  Created by Anton Cherkasov on 13.05.2023.
 //
 
 import Foundation
+import Hierarchy
 @testable import Node
 
 final class DataProviderMock {
 
-	var invocations: [Action] = []
+	var invocations: [Invocation] = []
 
-	var numberOfChildrenOfModelStub: Int = 0
-	var childStub: Model = .init(isDone: .random(), text: UUID().uuidString)
+	// MARK: - Stubs
 
-	var insertionStub: (IndexSet, Editor.NodeModel?)?
-	var deletionStub: (IndexSet, Editor.NodeModel?)?
+	var numberOfChildrenOfItemStub: Int = 0
 
+	var childOfItemStub: NodeModel = .init(isDone: false, text: "")
+
+	var addItemsStub: [Action] = []
+
+	var removeItemsStub: [Action] = []
+
+	var moveItemsToTargetStub: [Action] = []
+
+	var moveItemsToTargetAtIndexStub: [Action] = []
+
+	var moveItemsToRootStub: [Action] = []
+
+	var canMoveStub = false
 }
 
 // MARK: - DataProviderProtocol
 extension DataProviderMock: DataProviderProtocol {
 
-	func numberOfChildrenOfModel(model: Model?) -> Int {
-		numberOfChildrenOfModelStub
+	typealias Action = HierarchyDiffAction<NodeModel>
+
+	typealias Item = NodeModel
+
+	func numberOfChildren(of item: Item?) -> Int {
+		let invocation: Invocation = .numberOfChildrenOfItem(item)
+		invocations.append(invocation)
+		return numberOfChildrenOfItemStub
 	}
 
-	func child(index: Int, ofModel model: Model?) -> Any {
-		childStub
-	}
-}
-
-// MARK: - DataProviderOperation
-extension DataProviderMock: DataProviderOperation {
-
-	func remove(_ models: [Editor.NodeModel], handler: (IndexSet, Editor.NodeModel?) -> Void) {
-		let action: Action = .remove(models)
-		invocations.append(action)
-		guard let deletionStub else {
-			return
-		}
-		handler(deletionStub.0, deletionStub.1)
+	func child(ofItem item: Item?, at index: Int) -> Item {
+		let invocation: Invocation = .childOfItem(item, index: index)
+		invocations.append(invocation)
+		return childOfItemStub
 	}
 
-	func insert(
-		_ models: [Editor.NodeModel],
-		to destination: Editor.NodeModel?,
-		at index: Int?, handler: (IndexSet, Editor.NodeModel?) -> Void
-	) {
-		let action: Action = .insert(models, destination: destination, index: index)
-		invocations.append(action)
-		guard let insertionStub else {
-			return
-		}
-		handler(insertionStub.0, insertionStub.1)
+	func addItems(_ items: [Item], to target: Item?) -> [Action] {
+		let invocation: Invocation = .addItems(items, target: target)
+		invocations.append(invocation)
+		return addItemsStub
+	}
+
+	func removeItems(_ items: [Item]) -> [Action] {
+		let invocation: Invocation = .removeItems(items)
+		invocations.append(invocation)
+		return removeItemsStub
+	}
+
+	func moveItems(_ items: [Item], to target: Item?) -> [Action] {
+		let invocation: Invocation = .moveItemsToTarget(items, target: target)
+		invocations.append(invocation)
+		return moveItemsToTargetStub
+	}
+
+	func moveItems(_ items: [Item], to target: Item, at index: Int) -> [Action] {
+		let invocation: Invocation = .moveItemsToTargetAtIndex(items, target: target, index: index)
+		invocations.append(invocation)
+		return moveItemsToTargetAtIndexStub
+	}
+
+	func moveItemsToRoot(_ items: [Item], at index: Int) -> [Action] {
+		let invocation: Invocation = .moveItemsToRoot(items, index: index)
+		invocations.append(invocation)
+		return moveItemsToRootStub
+	}
+
+	func canMove(_ items: [Item], to target: Item?) -> Bool {
+		return canMoveStub
 	}
 }
 
 extension DataProviderMock {
 
-	enum Action {
-		case insert(_ models: [Editor.NodeModel], destination: Editor.NodeModel?, index: Int?)
-		case remove(_ models: [Editor.NodeModel])
+	enum Invocation {
+
+		case numberOfChildrenOfItem(_ item: Item?)
+
+		case childOfItem(_ item: Item?, index: Int)
+
+		case addItems(_ items: [Item], target: Item?)
+
+		case removeItems(_ items: [Item])
+
+		case moveItemsToTarget(_ items: [Item], target: Item?)
+
+		case moveItemsToTargetAtIndex(_ items: [Item], target: Item, index: Int)
+
+		case moveItemsToRoot(_ items: [Item], index: Int)
 	}
 }
