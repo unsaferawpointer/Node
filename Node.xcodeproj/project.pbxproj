@@ -21,6 +21,14 @@
 		4C0110D829EA7E890084B5BB /* NSTableView + Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110D329EA7E890084B5BB /* NSTableView + Extentions.swift */; };
 		4C0110D929EA7E890084B5BB /* NSOutlineView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110D429EA7E890084B5BB /* NSOutlineView + Extensions.swift */; };
 		4C0110DB29EA7E890084B5BB /* NSScrollView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0110D629EA7E890084B5BB /* NSScrollView + Extensions.swift */; };
+		4C520B652A19402700BACC3C /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C520B642A19402700BACC3C /* ContentManager.swift */; };
+		4C520B672A19404900BACC3C /* DataLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C520B662A19404900BACC3C /* DataLoaderProtocol.swift */; };
+		4C520B6C2A1940BB00BACC3C /* TextProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C520B6B2A1940BB00BACC3C /* TextProcessing.swift */; };
+		4C520B6E2A1940FA00BACC3C /* TextLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C520B6D2A1940FA00BACC3C /* TextLoader.swift */; };
+		4C520B732A1945B000BACC3C /* TextLoaderTextProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C520B722A1945B000BACC3C /* TextLoaderTextProcessorTests.swift */; };
+		4C520B782A1A2B4200BACC3C /* TextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C520B772A1A2B4200BACC3C /* TextNode.swift */; };
+		4C520B7A2A1A2B5C00BACC3C /* TextLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C520B792A1A2B5C00BACC3C /* TextLine.swift */; };
+		4C520B7C2A1A5E7E00BACC3C /* ContentManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C520B7B2A1A5E7E00BACC3C /* ContentManagerTests.swift */; };
 		4CA1FDAA2A0F707300AF0283 /* DataProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA1FDA92A0F707300AF0283 /* DataProviderMock.swift */; };
 		4CA1FDAD2A0F8F5700AF0283 /* NodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA1FDAC2A0F8F5700AF0283 /* NodeModel.swift */; };
 		4CC2F2C42A07022900F2A5D6 /* Editor.ViewController + Drag And Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC2F2C32A07022900F2A5D6 /* Editor.ViewController + Drag And Drop.swift */; };
@@ -86,6 +94,14 @@
 		4C0110D329EA7E890084B5BB /* NSTableView + Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTableView + Extentions.swift"; sourceTree = "<group>"; };
 		4C0110D429EA7E890084B5BB /* NSOutlineView + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSOutlineView + Extensions.swift"; sourceTree = "<group>"; };
 		4C0110D629EA7E890084B5BB /* NSScrollView + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSScrollView + Extensions.swift"; sourceTree = "<group>"; };
+		4C520B642A19402700BACC3C /* ContentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
+		4C520B662A19404900BACC3C /* DataLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoaderProtocol.swift; sourceTree = "<group>"; };
+		4C520B6B2A1940BB00BACC3C /* TextProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessing.swift; sourceTree = "<group>"; };
+		4C520B6D2A1940FA00BACC3C /* TextLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLoader.swift; sourceTree = "<group>"; };
+		4C520B722A1945B000BACC3C /* TextLoaderTextProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLoaderTextProcessorTests.swift; sourceTree = "<group>"; };
+		4C520B772A1A2B4200BACC3C /* TextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNode.swift; sourceTree = "<group>"; };
+		4C520B792A1A2B5C00BACC3C /* TextLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLine.swift; sourceTree = "<group>"; };
+		4C520B7B2A1A5E7E00BACC3C /* ContentManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManagerTests.swift; sourceTree = "<group>"; };
 		4CA1FDA92A0F707300AF0283 /* DataProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderMock.swift; sourceTree = "<group>"; };
 		4CA1FDAC2A0F8F5700AF0283 /* NodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeModel.swift; sourceTree = "<group>"; };
 		4CC2F2C32A07022900F2A5D6 /* Editor.ViewController + Drag And Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Editor.ViewController + Drag And Drop.swift"; sourceTree = "<group>"; };
@@ -165,6 +181,7 @@
 				4C01109729EA74380084B5BB /* AppDelegate.swift */,
 				4C01109B29EA74380084B5BB /* Document.swift */,
 				4C0110A329EA74390084B5BB /* Node.entitlements */,
+				4C520B622A19400800BACC3C /* Services */,
 				4CDE0ACC29F54E4200FC3812 /* Common */,
 				4CA1FDAB2A0F78FC00AF0283 /* Model */,
 				4C0110CC29EA7D1B0084B5BB /* Modules */,
@@ -181,6 +198,7 @@
 				4CEBDD9429F84F1400019F43 /* Misc */,
 				4CEBDD8529F8267400019F43 /* Common Mocks */,
 				4CEBDD8229F8228A00019F43 /* Modules */,
+				4C520B6F2A19457800BACC3C /* Services */,
 			);
 			path = NodeTests;
 			sourceTree = "<group>";
@@ -234,6 +252,68 @@
 				4CEBDD9B29F86B2200019F43 /* Localization */,
 			);
 			path = Editor;
+			sourceTree = "<group>";
+		};
+		4C520B622A19400800BACC3C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4C520B742A19EAD400BACC3C /* TextProcessing */,
+				4C520B632A19401300BACC3C /* Loaders */,
+				4C520B642A19402700BACC3C /* ContentManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4C520B632A19401300BACC3C /* Loaders */ = {
+			isa = PBXGroup;
+			children = (
+				4C520B662A19404900BACC3C /* DataLoaderProtocol.swift */,
+				4C520B682A19406D00BACC3C /* TextLoader */,
+			);
+			path = Loaders;
+			sourceTree = "<group>";
+		};
+		4C520B682A19406D00BACC3C /* TextLoader */ = {
+			isa = PBXGroup;
+			children = (
+				4C520B6D2A1940FA00BACC3C /* TextLoader.swift */,
+			);
+			path = TextLoader;
+			sourceTree = "<group>";
+		};
+		4C520B6F2A19457800BACC3C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4C520B702A19458800BACC3C /* TextLoader */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4C520B702A19458800BACC3C /* TextLoader */ = {
+			isa = PBXGroup;
+			children = (
+				4C520B7B2A1A5E7E00BACC3C /* ContentManagerTests.swift */,
+				4C520B712A19459600BACC3C /* Tests */,
+			);
+			path = TextLoader;
+			sourceTree = "<group>";
+		};
+		4C520B712A19459600BACC3C /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4C520B722A1945B000BACC3C /* TextLoaderTextProcessorTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		4C520B742A19EAD400BACC3C /* TextProcessing */ = {
+			isa = PBXGroup;
+			children = (
+				4C520B6B2A1940BB00BACC3C /* TextProcessing.swift */,
+				4C520B772A1A2B4200BACC3C /* TextNode.swift */,
+				4C520B792A1A2B5C00BACC3C /* TextLine.swift */,
+			);
+			path = TextProcessing;
 			sourceTree = "<group>";
 		};
 		4CA1FDAB2A0F78FC00AF0283 /* Model */ = {
@@ -522,12 +602,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C520B782A1A2B4200BACC3C /* TextNode.swift in Sources */,
 				4CEBDD7129F656AB00019F43 /* Editor.Presenter.swift in Sources */,
 				4CC2F2C42A07022900F2A5D6 /* Editor.ViewController + Drag And Drop.swift in Sources */,
 				4CEBDD8129F70B1300019F43 /* Editor.Assembly.swift in Sources */,
 				4CEBDD6B29F5C10400019F43 /* ConfigurableField.swift in Sources */,
 				4CEBDD6F29F5C81A00019F43 /* CheckboxConfiguration.swift in Sources */,
 				4C0110C729EA749F0084B5BB /* WindowController.swift in Sources */,
+				4C520B6E2A1940FA00BACC3C /* TextLoader.swift in Sources */,
 				4CEBDD7829F7010500019F43 /* ViewControllerOutput.swift in Sources */,
 				4C0110D929EA7E890084B5BB /* NSOutlineView + Extensions.swift in Sources */,
 				4CA1FDAD2A0F8F5700AF0283 /* NodeModel.swift in Sources */,
@@ -536,13 +618,16 @@
 				4CD8941C29FB92A2008A627C /* ToolbarFactory.swift in Sources */,
 				4CEBDDA929F9B92600019F43 /* Configurable.swift in Sources */,
 				4CEBDDA429F9AE3D00019F43 /* CommonMenuSupportable.swift in Sources */,
+				4C520B6C2A1940BB00BACC3C /* TextProcessing.swift in Sources */,
 				4CEBDD9D29F86B4200019F43 /* Editor.Localization.swift in Sources */,
 				4C0110DB29EA7E890084B5BB /* NSScrollView + Extensions.swift in Sources */,
+				4C520B652A19402700BACC3C /* ContentManager.swift in Sources */,
 				4C01109829EA74380084B5BB /* AppDelegate.swift in Sources */,
 				4CC2F2C92A07AF5F00F2A5D6 /* DropDestination.swift in Sources */,
 				4C0110D729EA7E890084B5BB /* NSTableColumn + Extentions.swift in Sources */,
 				4CFEF75129F5A04D000A2629 /* Bindable.swift in Sources */,
 				4CEBDD7F29F709BB00019F43 /* Editor.ViewController + NSOutlineViewDelegate.swift in Sources */,
+				4C520B672A19404900BACC3C /* DataLoaderProtocol.swift in Sources */,
 				4C0110D829EA7E890084B5BB /* NSTableView + Extentions.swift in Sources */,
 				4C0110CF29EA7D4D0084B5BB /* Editor.swift in Sources */,
 				4CEBDD6D29F5C4FB00019F43 /* FieldConfiguration.swift in Sources */,
@@ -550,6 +635,7 @@
 				4CC2F2E12A0D24C200F2A5D6 /* DataProvider.swift in Sources */,
 				4CEBDD7D29F7097500019F43 /* Editor.ViewController + NSOutlineViewDataSource.swift in Sources */,
 				4C0110D129EA7D920084B5BB /* Editor.ViewController.swift in Sources */,
+				4C520B7A2A1A2B5C00BACC3C /* TextLine.swift in Sources */,
 				4C01109C29EA74380084B5BB /* Document.swift in Sources */,
 				4CEBDD6729F5C03B00019F43 /* Checkbox.swift in Sources */,
 			);
@@ -562,6 +648,8 @@
 				4CFEF75329F5A144000A2629 /* BindableTests.swift in Sources */,
 				4CA1FDAA2A0F707300AF0283 /* DataProviderMock.swift in Sources */,
 				4CEBDD8C29F8286A00019F43 /* EditorViewSpy.swift in Sources */,
+				4C520B7C2A1A5E7E00BACC3C /* ContentManagerTests.swift in Sources */,
+				4C520B732A1945B000BACC3C /* TextLoaderTextProcessorTests.swift in Sources */,
 				4CEBDD9029F845FC00019F43 /* ObjectMock.swift in Sources */,
 				4CEBDD8429F8262400019F43 /* EditorPresenterTests.swift in Sources */,
 			);

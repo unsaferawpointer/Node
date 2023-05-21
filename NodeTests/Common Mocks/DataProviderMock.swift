@@ -30,6 +30,10 @@ final class DataProviderMock {
 	var moveItemsToRootStub: [Action] = []
 
 	var canMoveStub = false
+
+	var childrenStub: [NodeModel] = []
+
+	var getLevelStub = 0
 }
 
 // MARK: - DataProviderProtocol
@@ -84,6 +88,18 @@ extension DataProviderMock: DataProviderProtocol {
 	func canMove(_ items: [Item], to target: Item?) -> Bool {
 		return canMoveStub
 	}
+
+	func children(of item: Item?) -> [Item] {
+		childrenStub
+	}
+
+	func getLevel(of item: Item) -> Int {
+		getLevelStub
+	}
+
+	func clearStorage() {
+		invocations.append(.clearStorage)
+	}
 }
 
 extension DataProviderMock {
@@ -103,5 +119,7 @@ extension DataProviderMock {
 		case moveItemsToTargetAtIndex(_ items: [Item], target: Item, index: Int)
 
 		case moveItemsToRoot(_ items: [Item], index: Int)
+
+		case clearStorage
 	}
 }

@@ -27,6 +27,18 @@ protocol DataProviderProtocol {
 	/// - Returns: Returns child
 	func child(ofItem item: Item?, at index: Int) -> Item
 
+	/// Returns children of the item
+	///
+	/// - Parameters:
+	///    - item: Item
+	func children(of item: Item?) -> [Item]
+
+	/// Returns indentation level of the item
+	///
+	/// - Parameters:
+	///    - item: Item
+	func getLevel(of item: Item) -> Int
+
 	/// Add new items
 	///
 	/// - Parameters:
@@ -78,6 +90,9 @@ protocol DataProviderProtocol {
 	///    - items: Moving items
 	///    - target: Destination of the moving
 	func canMove(_ items: [Item], to target: Item?) -> Bool
+
+	/// Delete all data
+	func clearStorage()
 }
 
 /// Data provider for hierarchy data struct
@@ -126,6 +141,14 @@ extension DataProvider: DataProviderProtocol {
 		return data.child(in: item, at: index)
 	}
 
+	func children(of item: Item?) -> [Item] {
+		return data.children(of: item)
+	}
+
+	func getLevel(of item: Item) -> Int {
+		return data.getLevel(of: item)
+	}
+
 	@discardableResult
 	func addItems(_ items: [Item], to target: Item?) -> [Action] {
 		data.startUpdating()
@@ -142,5 +165,9 @@ extension DataProvider: DataProviderProtocol {
 		data.startUpdating()
 		data.remove(items)
 		return data.endUpdating()
+	}
+
+	func clearStorage() {
+		data.clearStorage()
 	}
 }
