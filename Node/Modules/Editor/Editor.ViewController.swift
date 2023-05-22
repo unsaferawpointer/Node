@@ -60,6 +60,11 @@ extension Editor.ViewController {
 		super.viewDidLoad()
 		output?.viewControllerDidChangeState(.didLoad)
 	}
+
+	override func viewWillAppear() {
+		super.viewWillAppear()
+		table.sizeLastColumnToFit()
+	}
 }
 
 // MARK: - EditorView
@@ -121,6 +126,9 @@ private extension Editor.ViewController {
 		column.resizingMask = [.autoresizingMask, .userResizingMask]
 		table.addTableColumn(column)
 
+		table.headerView = nil
+		table.backgroundColor = .clear
+
 		table.delegate = self
 		table.dataSource = self
 
@@ -140,8 +148,8 @@ private extension Editor.ViewController {
 			[
 				scrollview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 				scrollview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-				scrollview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-				scrollview.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+				scrollview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24.0),
+				scrollview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24.0)
 			]
 		)
 	}
