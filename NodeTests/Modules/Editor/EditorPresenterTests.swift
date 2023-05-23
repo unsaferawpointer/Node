@@ -13,21 +13,21 @@ final class EditorPresenterTests: XCTestCase {
 
 	var sut: Editor.Presenter!
 
-	var dataProvider: DataProviderMock!
+	var interactor: EditorInteractorMock!
 
 	var view: EditorViewSpy!
 
 	override func setUpWithError() throws {
-		dataProvider = DataProviderMock()
+		interactor = EditorInteractorMock()
 		view = EditorViewSpy()
-		sut = Editor.Presenter(dataProvider: dataProvider)
+		sut = Editor.Presenter(interactor: interactor)
 		sut.view = view
 	}
 
 	override func tearDownWithError() throws {
 		sut = nil
 		view = nil
-		dataProvider = nil
+		interactor = nil
 	}
 }
 
@@ -60,14 +60,13 @@ extension EditorPresenterTests {
 	func test_numberOfChildrenOfItem() {
 		// Arrange
 		let model: NodeModel = .default()
-		let numberOfChildren = Int.random(in: 0..<100)
-		dataProvider.numberOfChildrenOfItemStub = numberOfChildren
+		interactor.childrenStub = [.default(), .default()]
 
 		// Act
 		let result = sut.numberOfChildrenOfItem(item: model)
 
 		// Assert
-		XCTAssertEqual(result, numberOfChildren)
+		XCTAssertEqual(result, 2)
 	}
 
 	func test_child() {
@@ -75,7 +74,7 @@ extension EditorPresenterTests {
 		let model: NodeModel = .default()
 		let child: NodeModel = .default()
 
-		dataProvider.childOfItemStub = child
+		interactor.childrenStub = [child]
 
 		// Act
 		let result = sut.child(index: 0, ofItem: model)
@@ -87,7 +86,7 @@ extension EditorPresenterTests {
 	func test_isItemExpandable() {
 		// Arrange
 		let model: NodeModel = .default()
-		dataProvider.numberOfChildrenOfItemStub = 2
+		interactor.childrenStub = [.default(), .default()]
 
 		// Act
 		let result = sut.isItemExpandable(item: model)
@@ -101,7 +100,7 @@ extension EditorPresenterTests {
 		let items: [NodeModel] = [.default(), .default()]
 		let destination: NodeModel = .default()
 
-		dataProvider.canMoveStub = true
+		interactor.canMoveStub = true
 
 		// Act
 		let result = sut.canMove(items, to: destination)
@@ -129,18 +128,19 @@ extension EditorPresenterTests {
 
 		let destination: NodeModel = .default()
 
-		dataProvider.moveItemsToTargetStub = []
+		interactor.actionsStub = []
 
 		// Act
-		sut.moveItems(movingItems, to: destination)
+		sut.moveItems(movingItems, to: .onTarget(destination))
 
 		// Assert
-		guard case let .moveItemsToTarget(items, target) = dataProvider.invocations.first else {
-			return XCTFail("`moveItemsToTarget` must be invocked")
+
+		guard case let .moveItems(items, target) = interactor.invocations[0] else {
+			return XCTFail("`moveItems` must be invocked")
 		}
 
 		XCTAssertEqual(items.count, 2)
-		XCTAssertIdentical(target, destination)
+		XCTAssertEqual(target, .onTarget(destination))
 
 		guard case .startUpdating  = view.invocations[0] else {
 			return XCTFail("`startUpdating` must be invocked")
@@ -166,19 +166,18 @@ extension EditorPresenterTests {
 
 		let destination: NodeModel = .default()
 
-		dataProvider.moveItemsToTargetStub = []
+		interactor.actionsStub = []
 
 		// Act
-		sut.moveItems(movingItems, to: destination, at: 0)
+		sut.moveItems(movingItems, to: .intoTarget(destination, offset: 0))
 
 		// Assert
-		guard case let .moveItemsToTargetAtIndex(items, target, index) = dataProvider.invocations.first else {
-			return XCTFail("`moveItemsToTarget` must be invocked")
+		guard case let .moveItems(items, target) = interactor.invocations[0] else {
+			return XCTFail("`moveItems` must be invocked")
 		}
 
 		XCTAssertEqual(items.count, 2)
-		XCTAssertIdentical(target, destination)
-		XCTAssertEqual(index, 0)
+		XCTAssertEqual(target, .intoTarget(destination, offset: 0))
 
 		guard case .startUpdating  = view.invocations[0] else {
 			return XCTFail("`startUpdating` must be invocked")
@@ -202,18 +201,18 @@ extension EditorPresenterTests {
 		// Arrange
 		let movingItems: [NodeModel] = [.default(), .default()]
 
-		dataProvider.moveItemsToTargetStub = []
+		interactor.actionsStub = []
 
 		// Act
-		sut.moveItems(movingItems, to: nil)
+		sut.moveItems(movingItems, to: .onRoot)
 
 		// Assert
-		guard case let .moveItemsToTarget(items, target) = dataProvider.invocations.first else {
-			return XCTFail("`moveItemsToTarget` must be invocked")
+		guard case let .moveItems(items, target) = interactor.invocations[0] else {
+			return XCTFail("`moveItems` must be invocked")
 		}
 
 		XCTAssertEqual(items.count, 2)
-		XCTAssertNil(target)
+		XCTAssertEqual(target, .onRoot)
 
 		guard case .startUpdating  = view.invocations[0] else {
 			return XCTFail("`startUpdating` must be invocked")
@@ -223,32 +222,25 @@ extension EditorPresenterTests {
 			return XCTFail("`endUpdating` must be invocked")
 		}
 
-		guard case let .expand(expandedObject, animate) = view.invocations[2] else {
-			return XCTFail("`expand` must be invocked")
-		}
-
-		XCTAssertNil(expandedObject)
-		XCTAssertTrue(animate)
-
-		XCTAssertEqual(view.invocations.count, 3)
+		XCTAssertEqual(view.invocations.count, 2)
 	}
 
 	func test_moveItemsToRootAtIndex() {
 		// Arrange
 		let movingItems: [NodeModel] = [.default(), .default()]
 
-		dataProvider.moveItemsToRootStub = []
+		interactor.actionsStub = []
 
 		// Act
-		sut.moveItemsToRoot(movingItems, at: 0)
+		sut.moveItems(movingItems, to: .intoRoot(offset: 0))
 
 		// Assert
-		guard case let .moveItemsToRoot(items, index) = dataProvider.invocations.first else {
-			return XCTFail("`moveItemsToTarget` must be invocked")
+		guard case let .moveItems(items, target) = interactor.invocations[0] else {
+			return XCTFail("`moveItems` must be invocked")
 		}
 
 		XCTAssertEqual(items.count, 2)
-		XCTAssertEqual(index, 0)
+		XCTAssertEqual(target, .intoRoot(offset: 0))
 
 		guard case .startUpdating  = view.invocations[0] else {
 			return XCTFail("`startUpdating` must be invocked")
@@ -270,18 +262,18 @@ extension EditorPresenterTests {
 		let first = NodeModel(isDone: false, text: "0")
 		view.selectionStub = [first, NodeModel(isDone: false, text: "1")]
 
-		dataProvider.addItemsStub = [.updateItem(first), .insertItems(atIndexes: .init(integer: 0), inParent: first)]
+		interactor.actionsStub = [.updateItem(first), .insertItems(atIndexes: .init(integer: 0), inParent: first)]
 
 		// Act
 		sut.userClickedAddMenuItem()
 
 		// Assert
-		guard case let .addItems(items, target) = dataProvider.invocations.first else {
-			return XCTFail("`addItems` must be invocked")
+		guard case let .insertItems(items, target) = interactor.invocations[0] else {
+			return XCTFail("`insertItems` must be invocked")
 		}
 
 		XCTAssertEqual(items.count, 1)
-		XCTAssertIdentical(first, target)
+		XCTAssertEqual(target, .onTarget(first))
 
 		guard case .getSelection = view.invocations[0] else {
 			return XCTFail("`getSelection` must be invocked")
@@ -321,18 +313,18 @@ extension EditorPresenterTests {
 		// Arrange
 		view.selectionStub = []
 
-		dataProvider.addItemsStub = [.updateItem(nil), .insertItems(atIndexes: .init(integer: 0), inParent: nil)]
+		interactor.actionsStub = [.updateItem(nil), .insertItems(atIndexes: .init(integer: 0), inParent: nil)]
 
 		// Act
 		sut.userClickedAddMenuItem()
 
 		// Assert
-		guard case let .addItems(items, target) = dataProvider.invocations.first else {
-			return XCTFail("`addItems` must be invocked")
+		guard case let .insertItems(items, target) = interactor.invocations[0] else {
+			return XCTFail("`insertItems` must be invocked")
 		}
 
 		XCTAssertEqual(items.count, 1)
-		XCTAssertNil(target)
+		XCTAssertEqual(target, .onRoot)
 
 		guard case .getSelection = view.invocations[0] else {
 			return XCTFail("`getSelection` must be invocked")
@@ -353,13 +345,7 @@ extension EditorPresenterTests {
 		XCTAssertEqual(insertionIndexes, .init(integer: 0))
 		XCTAssertNil(insertionDestination)
 
-		guard case let .expand(expandedObject, animate) = view.invocations[4] else {
-			return XCTFail("`expand` must be invocked")
-		}
-
-		XCTAssertNil(expandedObject)
-		XCTAssertTrue(animate)
-		XCTAssertEqual(view.invocations.count, 5)
+		XCTAssertEqual(view.invocations.count, 4)
 	}
 
 	func test_userClickedDeleteMenuItem() {
@@ -372,7 +358,7 @@ extension EditorPresenterTests {
 		sut.userClickedDeleteMenuItem()
 
 		// Assert
-		guard case let .removeItems(items) = dataProvider.invocations.first else {
+		guard case let .removeItems(items) = interactor.invocations[0] else {
 			return XCTFail("`removeItems` must be invocked")
 		}
 

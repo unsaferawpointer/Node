@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import UniformTypeIdentifiers
 
 // MARK: - Drag & Drop support
 extension Editor.ViewController {
@@ -48,20 +49,8 @@ extension Editor.ViewController {
 		let objects = objects(from: info)
 		let destination = dropDestination(target: item, index: index)
 
-		switch destination {
-			case .onRoot:
-				output?.moveItems(objects, to: nil)
-				return true
-			case .intoRoot(let offset):
-				output?.moveItemsToRoot(objects, at: offset)
-				return true
-			case .onTarget(let object):
-				output?.moveItems(objects, to: object)
-				return true
-			case .intoTarget(let object, let offset):
-				output?.moveItems(objects, to: object, at: offset)
-				return true
-		}
+		output?.moveItems(objects, to: destination)
+		return true
 	}
 }
 
@@ -75,7 +64,7 @@ extension Editor.ViewController {
 		pasterboardItem.setData(indexData, forType: .rows)
 	}
 
-	func dropDestination(target: Any?, index: Int) -> DropDestination {
+	func dropDestination(target: Any?, index: Int) -> Destination<Any> {
 		switch target {
 			case .some(let target):
 				return index == -1 ? .onTarget(target) : .intoTarget(target, offset: index)
@@ -85,7 +74,7 @@ extension Editor.ViewController {
 		}
 	}
 
-	func draggingSource(draggingInfo info: NSDraggingInfo) -> Source {
+	func draggingSource(draggingInfo info: NSDraggingInfo) -> DraggingSource {
 		if let source = info.draggingSource as? NSOutlineView, source === table {
 			return .local
 		} else if info.draggingSource != nil {
@@ -115,13 +104,4 @@ extension Editor.ViewController {
 
 extension NSPasteboard.PasteboardType {
 	static var rows = NSPasteboard.PasteboardType("private.table.indexes")
-}
-
-enum Source {
-	/// Destination view equals source view
-	case local
-	/// Destination app equals source app
-	case `internal`
-	/// Source is external application
-	case external
 }

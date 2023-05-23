@@ -29,3 +29,11 @@ final class NodeModel {
 
 // MARK: - ReferenceIdentifiable
 extension NodeModel: ReferenceIdentifiable { }
+
+// MARK: - Equatable
+extension NodeModel: Equatable {
+
+	static func == (lhs: NodeModel, rhs: NodeModel) -> Bool {
+		return lhs.id == rhs.id
+	}
+}

@@ -18,7 +18,8 @@ extension Editor {
 		///    - dataProvider: DataProvider
 		/// - Returns: ViewController of the module
 		static func build(_ dataProvider: DataProviderProtocol) -> NSViewController {
-			let presenter = Editor.Presenter(dataProvider: dataProvider)
+			let interactor = Editor.Interactor(dataProvider: dataProvider)
+			let presenter = Editor.Presenter(interactor: interactor)
 			return Editor.ViewController { viewController in
 				viewController.output = presenter
 				presenter.view = viewController

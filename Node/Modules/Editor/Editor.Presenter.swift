@@ -39,13 +39,15 @@ protocol EditorTableAdapter: AnyObject {
 	/// - Returns: View-Model
 	func viewModel(for column: String, item: Any) -> (any FieldConfiguration)?
 
-	func moveItems(_ items: [Any], to target: Any?)
-
-	func moveItems(_ items: [Any], to target: Any, at index: Int)
-
-	func moveItemsToRoot(_ items: [Any], at index: Int)
-
+	/// Returns availability of the moving
 	func canMove(_ items: [Any], to target: Any?) -> Bool
+
+	/// Move items to destination without checking availability of the operation
+	///
+	/// - Parameters:
+	///    - items: Moving items
+	///    - destination: Destination
+	func moveItems(_ items: [Any], to destination: Destination<Any>)
 }
 
 /// Common interface of Editor module presenter
@@ -67,12 +69,14 @@ extension Editor {
 
 		weak var view: EditorView?
 
+		var interactor: EditorInteractor
+
 		var localization: EditorLocalization = Editor.Localization()
 
-		var dataProvider: DataProviderProtocol
+		// MARK: - Initialization
 
-		init(dataProvider: DataProviderProtocol) {
-			self.dataProvider = dataProvider
+		init(interactor: EditorInteractor) {
+			self.interactor = interactor
 		}
 
 	}
@@ -98,18 +102,27 @@ extension Editor.Presenter: EditorPresenter {
 
 	func userClickedAddMenuItem() {
 		let new = NodeModel(isDone: false, text: localization.newObjectPlaceholderTitle)
-		let first = view?.getSelection().first as? NodeModel
+		guard let first = view?.getSelection().first as? NodeModel else {
+			interactor.insertItems([new], to: .onRoot) { [weak self] actions in
+				self?.performAnimation(actions)
+			}
+			return
+		}
 
-		let operations = dataProvider.addItems([new], to: first)
-		performAnimation(operations)
-
-		view?.expand(first, withAnimation: true)
+		interactor.insertItems([new], to: .onTarget(first)) { [weak self] actions in
+			self?.performAnimation(actions)
+			self?.view?.expand(first, withAnimation: true)
+		}
+		return
 	}
 
 	func userClickedDeleteMenuItem() {
-		let selectedItems = view?.getSelection() as? [NodeModel]
-		let operations = dataProvider.removeItems(selectedItems ?? [])
-		performAnimation(operations)
+		guard let selectedItems = view?.getSelection() as? [NodeModel] else {
+			return
+		}
+		interactor.removeItems(selectedItems) { [weak self] actions in
+			self?.performAnimation(actions)
+		}
 	}
 
 }
@@ -120,53 +133,41 @@ extension Editor.Presenter: EditorTableAdapter {
 	typealias Model = NodeModel
 
 	func numberOfChildrenOfItem(item: Any?) -> Int {
-		return dataProvider.numberOfChildren(of: item as? Model)
+		return interactor.children(ofItem: item as? Model).count
 	}
 
 	func child(index: Int, ofItem item: Any?) -> Any {
-		return dataProvider.child(ofItem: item as? Model, at: index)
+		return interactor.children(ofItem: item as? Model)[index]
 	}
 
 	func isItemExpandable(item: Any) -> Bool {
-		guard let model = item as? Model else {
-			fatalError("This type is not supported. Type = \(item.self)")
-		}
-		return dataProvider.numberOfChildren(of: model) > 0
+		return !interactor.children(ofItem: item as? Model).isEmpty
 	}
 
-	func moveItems(_ items: [Any], to target: Any?) {
+	func moveItems(_ items: [Any], to destination: Destination<Any>) {
 		guard let items = items as? [Model] else {
 			fatalError("This type is not supported. Type = \(items.self)")
 		}
-		let target = target as? Model
-		let operations = dataProvider.moveItems(items, to: target)
-		performAnimation(operations)
-		view?.expand(target, withAnimation: true)
-	}
-
-	func moveItems(_ items: [Any], to target: Any, at index: Int) {
-		guard let items = items as? [Model], let target = target as? Model else {
-			return
+		guard let destination = destination.optionalCast(to: Model.self) else {
+			fatalError("This type is not supported. Type = \(destination.self)")
 		}
-		let operations = dataProvider.moveItems(items, to: target, at: index)
-		performAnimation(operations)
-		view?.expand(target, withAnimation: true)
-	}
-
-	func moveItemsToRoot(_ items: [Any], at index: Int) {
-		guard let items = items as? [Model] else {
-			fatalError("This type is not supported. Type = \(items.self)")
+		interactor.moveItems(items, to: destination) { [weak self] actions in
+			self?.performAnimation(actions)
 		}
-		let operations = dataProvider.moveItemsToRoot(items, at: index)
-		performAnimation(operations)
+
+		switch destination {
+			case .onTarget(let parent), .intoTarget(let parent, _):
+				view?.expand(parent, withAnimation: true)
+			default:
+				break
+		}
 	}
 
 	func canMove(_ items: [Any], to target: Any?) -> Bool {
 		guard let items = items as? [Model] else {
 			fatalError("This type is not supported. Type = \(items.self)")
 		}
-		let target = target as? Model
-		return dataProvider.canMove(items, to: target)
+		return interactor.canMove(items, to: target as? Model)
 	}
 
 	func viewModel(for column: String, item: Any) -> (any FieldConfiguration)? {
